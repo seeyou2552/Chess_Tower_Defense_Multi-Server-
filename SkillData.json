@@ -1,0 +1,607 @@
+{
+    "Skills": [
+        {
+            "ID": 5013,
+            "SkillType": 1,
+            "SearchScope": 0,
+            "MaxTargets": 0,
+            "ProjectileType": 0,
+            "ProjectileHitType": 0,
+            "ProjectileSpeed": 25.0,
+            "ProjectileDuration": 0.5,
+            "BuffList": [],
+            "SkillDamage": 30,
+            "SkillScale": 1.0,
+            "HitEvents": [
+                {
+                    "EventID": 0,
+                    "Duration": 3.0,
+                    "Value": 20.0
+                }
+            ],
+            "KillEvents": []
+        },
+        {
+            "ID": 5015,
+            "SkillType": 1,
+            "SearchScope": 1,
+            "MaxTargets": 1,
+            "ProjectileType": 1,
+            "ProjectileHitType": 1,
+            "ProjectileSpeed": 20.0,
+            "ProjectileDuration": 3.0,
+            "BuffList": [],
+            "SkillDamage": 25,
+            "SkillScale": 3.0,
+            "HitEvents": [
+                {
+                    "EventID": 0,
+                    "Duration": 5.0,
+                    "Value": 30.0
+                }
+            ],
+            "KillEvents": []
+        },
+        {
+            "ID": 5017,
+            "SkillType": 0,
+            "SearchScope": 2,
+            "MaxTargets": 0,
+            "ProjectileType": 0,
+            "ProjectileHitType": 0,
+            "ProjectileSpeed": 0.0,
+            "ProjectileDuration": 0.0,
+            "BuffList": [],
+            "SkillDamage": 55,
+            "SkillScale": 1.0,
+            "HitEvents": [
+                {
+                    "EventID": 0,
+                    "Duration": 1.0,
+                    "Value": 0.0
+                }
+            ],
+            "KillEvents": []
+        },
+        {
+            "ID": 5014,
+            "SkillType": 1,
+            "SearchScope": 1,
+            "MaxTargets": 1,
+            "ProjectileType": 1,
+            "ProjectileHitType": 1,
+            "ProjectileSpeed": 3.0,
+            "ProjectileDuration": 5.0,
+            "BuffList": [],
+            "SkillDamage": 50,
+            "SkillScale": 3.0,
+            "HitEvents": [],
+            "KillEvents": []
+        },
+        {
+            "ID": 5018,
+            "SkillType": 1,
+            "SearchScope": 1,
+            "MaxTargets": 1,
+            "ProjectileType": 0,
+            "ProjectileHitType": 0,
+            "ProjectileSpeed": 30.0,
+            "ProjectileDuration": 1.0,
+            "BuffList": [],
+            "SkillDamage": 150,
+            "SkillScale": 1.0,
+            "HitEvents": [
+                {
+                    "EventID": 0,
+                    "Duration": 0.0,
+                    "Value": 5.0
+                }
+            ],
+            "KillEvents": []
+        },
+        {
+            "ID": 5016,
+            "SkillType": 3,
+            "SearchScope": 3,
+            "MaxTargets": 0,
+            "ProjectileType": 0,
+            "ProjectileHitType": 0,
+            "ProjectileSpeed": 0.0,
+            "ProjectileDuration": 0.0,
+            "BuffList": [
+                {
+                    "BuffID": 4001,
+                    "Value": 50.0,
+                    "Duration": 2.0,
+                    "DefaultAttackData": {
+                        "DeliveryType": 0,
+                        "SearchScope": 2,
+                        "maxTargets": 0,
+                        "ProjectileType": 0,
+                        "ProjectileHitType": 0,
+                        "ProjectileSpeed": 0.0,
+                        "ProjectileDuration": 0.0
+                    }
+                }
+            ],
+            "SkillDamage": 0,
+            "SkillScale": 1.0,
+            "HitEvents": [],
+            "KillEvents": []
+        },
+        {
+            "ID": 5010,
+            "SkillType": 3,
+            "SearchScope": 3,
+            "MaxTargets": 0,
+            "ProjectileType": 0,
+            "ProjectileHitType": 0,
+            "ProjectileSpeed": 0.0,
+            "ProjectileDuration": 0.0,
+            "BuffList": [
+                {
+                    "BuffID": 4001,
+                    "Value": 2400.0,
+                    "Duration": 5.0,
+                    "DefaultAttackData": {
+                        "DeliveryType": 0,
+                        "SearchScope": 0,
+                        "maxTargets": 0,
+                        "ProjectileType": 0,
+                        "ProjectileHitType": 0,
+                        "ProjectileSpeed": 0.0,
+                        "ProjectileDuration": 0.0
+                    }
+                }
+            ],
+            "SkillDamage": 0,
+            "SkillScale": 1.0,
+            "HitEvents": [],
+            "KillEvents": []
+        },
+        {
+            "ID": 5009,
+            "SkillType": 0,
+            "SearchScope": 1,
+            "MaxTargets": 1,
+            "ProjectileType": 0,
+            "ProjectileHitType": 0,
+            "ProjectileSpeed": 0.0,
+            "ProjectileDuration": 0.0,
+            "BuffList": [],
+            "SkillDamage": 0,
+            "SkillScale": 1.0,
+            "HitEvents": [
+                {
+                    "EventID": 0,
+                    "Duration": 5.0,
+                    "Value": 5.0
+                }
+            ],
+            "KillEvents": [
+                {
+                    "EventID": 0,
+                    "Duration": 0.0,
+                    "Value": 1.0
+                }
+            ]
+        },
+        {
+            "ID": 5011,
+            "SkillType": 1,
+            "SearchScope": 1,
+            "MaxTargets": 5,
+            "ProjectileType": 0,
+            "ProjectileHitType": 1,
+            "ProjectileSpeed": 3.0,
+            "ProjectileDuration": 20.0,
+            "BuffList": [],
+            "SkillDamage": 50,
+            "SkillScale": 2.0,
+            "HitEvents": [
+                {
+                    "EventID": 0,
+                    "Duration": 3.0,
+                    "Value": 30.0
+                }
+            ],
+            "KillEvents": []
+        },
+        {
+            "ID": 5008,
+            "SkillType": 3,
+            "SearchScope": 3,
+            "MaxTargets": 0,
+            "ProjectileType": 0,
+            "ProjectileHitType": 0,
+            "ProjectileSpeed": 0.0,
+            "ProjectileDuration": 0.0,
+            "BuffList": [
+                {
+                    "BuffID": 4002,
+                    "Value": 5.0,
+                    "Duration": 3.0,
+                    "DefaultAttackData": {
+                        "DeliveryType": 1,
+                        "SearchScope": 1,
+                        "maxTargets": 5,
+                        "ProjectileType": 1,
+                        "ProjectileHitType": 1,
+                        "ProjectileSpeed": 15.0,
+                        "ProjectileDuration": 3.0
+                    }
+                }
+            ],
+            "SkillDamage": 0,
+            "SkillScale": 1.0,
+            "HitEvents": [],
+            "KillEvents": []
+        },
+        {
+            "ID": 5012,
+            "SkillType": 1,
+            "SearchScope": 0,
+            "MaxTargets": 0,
+            "ProjectileType": 0,
+            "ProjectileHitType": 0,
+            "ProjectileSpeed": 25.0,
+            "ProjectileDuration": 0.0,
+            "BuffList": [],
+            "SkillDamage": 50,
+            "SkillScale": 2.0,
+            "HitEvents": [
+                {
+                    "EventID": 0,
+                    "Duration": 1.0,
+                    "Value": 100.0
+                }
+            ],
+            "KillEvents": []
+        },
+        {
+            "ID": 5007,
+            "SkillType": 0,
+            "SearchScope": 1,
+            "MaxTargets": 2,
+            "ProjectileType": 0,
+            "ProjectileHitType": 0,
+            "ProjectileSpeed": 0.0,
+            "ProjectileDuration": 0.0,
+            "BuffList": [],
+            "SkillDamage": 88,
+            "SkillScale": 1.0,
+            "HitEvents": [
+                {
+                    "EventID": 0,
+                    "Duration": 2.0,
+                    "Value": 0.0
+                }
+            ],
+            "KillEvents": []
+        },
+        {
+            "ID": 5002,
+            "SkillType": 1,
+            "SearchScope": 1,
+            "MaxTargets": 3,
+            "ProjectileType": 0,
+            "ProjectileHitType": 0,
+            "ProjectileSpeed": 15.0,
+            "ProjectileDuration": 0.0,
+            "BuffList": [],
+            "SkillDamage": 50,
+            "SkillScale": 1.0,
+            "HitEvents": [],
+            "KillEvents": []
+        },
+        {
+            "ID": 5004,
+            "SkillType": 1,
+            "SearchScope": 1,
+            "MaxTargets": 5,
+            "ProjectileType": 0,
+            "ProjectileHitType": 0,
+            "ProjectileSpeed": 10.0,
+            "ProjectileDuration": 0.0,
+            "BuffList": [],
+            "SkillDamage": 45,
+            "SkillScale": 1.0,
+            "HitEvents": [
+                {
+                    "EventID": 0,
+                    "Duration": 3.0,
+                    "Value": 0.0
+                }
+            ],
+            "KillEvents": []
+        },
+        {
+            "ID": 5001,
+            "SkillType": 2,
+            "SearchScope": 2,
+            "MaxTargets": 0,
+            "ProjectileType": 0,
+            "ProjectileHitType": 0,
+            "ProjectileSpeed": 0.0,
+            "ProjectileDuration": 0.0,
+            "BuffList": [],
+            "SkillDamage": 50,
+            "SkillScale": 1.0,
+            "HitEvents": [],
+            "KillEvents": []
+        },
+        {
+            "ID": 5005,
+            "SkillType": 3,
+            "SearchScope": 3,
+            "MaxTargets": 1,
+            "ProjectileType": 0,
+            "ProjectileHitType": 0,
+            "ProjectileSpeed": 0.0,
+            "ProjectileDuration": 0.0,
+            "BuffList": [
+                {
+                    "BuffID": 4001,
+                    "Value": 50.0,
+                    "Duration": 2.0,
+                    "DefaultAttackData": {
+                        "DeliveryType": 0,
+                        "SearchScope": 0,
+                        "maxTargets": 0,
+                        "ProjectileType": 0,
+                        "ProjectileHitType": 0,
+                        "ProjectileSpeed": 0.0,
+                        "ProjectileDuration": 0.0
+                    }
+                }
+            ],
+            "SkillDamage": 0,
+            "SkillScale": 1.0,
+            "HitEvents": [],
+            "KillEvents": []
+        },
+        {
+            "ID": 5003,
+            "SkillType": 0,
+            "SearchScope": 1,
+            "MaxTargets": 1,
+            "ProjectileType": 0,
+            "ProjectileHitType": 0,
+            "ProjectileSpeed": 0.0,
+            "ProjectileDuration": 0.0,
+            "BuffList": [],
+            "SkillDamage": 144,
+            "SkillScale": 1.0,
+            "HitEvents": [],
+            "KillEvents": [
+                {
+                    "EventID": 0,
+                    "Duration": 0.0,
+                    "Value": 10.0
+                }
+            ]
+        },
+        {
+            "ID": 5006,
+            "SkillType": 3,
+            "SearchScope": 3,
+            "MaxTargets": 0,
+            "ProjectileType": 0,
+            "ProjectileHitType": 0,
+            "ProjectileSpeed": 0.0,
+            "ProjectileDuration": 0.0,
+            "BuffList": [
+                {
+                    "BuffID": 4002,
+                    "Value": 5.0,
+                    "Duration": 3.0,
+                    "DefaultAttackData": {
+                        "DeliveryType": 1,
+                        "SearchScope": 1,
+                        "maxTargets": 5,
+                        "ProjectileType": 0,
+                        "ProjectileHitType": 0,
+                        "ProjectileSpeed": 15.0,
+                        "ProjectileDuration": 0.0
+                    }
+                },
+                {
+                    "BuffID": 4001,
+                    "Value": 20.0,
+                    "Duration": 3.0,
+                    "DefaultAttackData": {
+                        "DeliveryType": 0,
+                        "SearchScope": 0,
+                        "maxTargets": 0,
+                        "ProjectileType": 0,
+                        "ProjectileHitType": 0,
+                        "ProjectileSpeed": 0.0,
+                        "ProjectileDuration": 0.0
+                    }
+                }
+            ],
+            "SkillDamage": 0,
+            "SkillScale": 1.0,
+            "HitEvents": [],
+            "KillEvents": []
+        },
+        {
+            "ID": 5025,
+            "SkillType": 3,
+            "SearchScope": 4,
+            "MaxTargets": 0,
+            "ProjectileType": 0,
+            "ProjectileHitType": 0,
+            "ProjectileSpeed": 0.0,
+            "ProjectileDuration": 0.0,
+            "BuffList": [
+                {
+                    "BuffID": 4001,
+                    "Value": 25.0,
+                    "Duration": 3.0,
+                    "DefaultAttackData": {
+                        "DeliveryType": 0,
+                        "SearchScope": 0,
+                        "maxTargets": 0,
+                        "ProjectileType": 0,
+                        "ProjectileHitType": 0,
+                        "ProjectileSpeed": 0.0,
+                        "ProjectileDuration": 0.0
+                    }
+                },
+                {
+                    "BuffID": 4003,
+                    "Value": 25.0,
+                    "Duration": 3.0,
+                    "DefaultAttackData": {
+                        "DeliveryType": 0,
+                        "SearchScope": 0,
+                        "maxTargets": 0,
+                        "ProjectileType": 0,
+                        "ProjectileHitType": 0,
+                        "ProjectileSpeed": 0.0,
+                        "ProjectileDuration": 0.0
+                    }
+                }
+            ],
+            "SkillDamage": 0,
+            "SkillScale": 1.0,
+            "HitEvents": [],
+            "KillEvents": []
+        },
+        {
+            "ID": 5023,
+            "SkillType": 0,
+            "SearchScope": 2,
+            "MaxTargets": 0,
+            "ProjectileType": 0,
+            "ProjectileHitType": 0,
+            "ProjectileSpeed": 0.0,
+            "ProjectileDuration": 0.0,
+            "BuffList": [],
+            "SkillDamage": 50,
+            "SkillScale": 5.0,
+            "HitEvents": [
+                {
+                    "EventID": 0,
+                    "Duration": 2.0,
+                    "Value": 0.0
+                }
+            ],
+            "KillEvents": []
+        },
+        {
+            "ID": 5024,
+            "SkillType": 3,
+            "SearchScope": 4,
+            "MaxTargets": 0,
+            "ProjectileType": 0,
+            "ProjectileHitType": 0,
+            "ProjectileSpeed": 0.0,
+            "ProjectileDuration": 0.0,
+            "BuffList": [
+                {
+                    "BuffID": 4001,
+                    "Value": 20.0,
+                    "Duration": 5.0,
+                    "DefaultAttackData": {
+                        "DeliveryType": 0,
+                        "SearchScope": 0,
+                        "maxTargets": 0,
+                        "ProjectileType": 0,
+                        "ProjectileHitType": 0,
+                        "ProjectileSpeed": 0.0,
+                        "ProjectileDuration": 0.0
+                    }
+                }
+            ],
+            "SkillDamage": 0,
+            "SkillScale": 1.0,
+            "HitEvents": [],
+            "KillEvents": []
+        },
+        {
+            "ID": 5021,
+            "SkillType": 1,
+            "SearchScope": 1,
+            "MaxTargets": 5,
+            "ProjectileType": 0,
+            "ProjectileHitType": 0,
+            "ProjectileSpeed": 20.0,
+            "ProjectileDuration": 0.0,
+            "BuffList": [],
+            "SkillDamage": 80,
+            "SkillScale": 2.0,
+            "HitEvents": [
+                {
+                    "EventID": 0,
+                    "Duration": 2.0,
+                    "Value": 150.0
+                }
+            ],
+            "KillEvents": []
+        },
+        {
+            "ID": 5022,
+            "SkillType": 1,
+            "SearchScope": 0,
+            "MaxTargets": 0,
+            "ProjectileType": 0,
+            "ProjectileHitType": 0,
+            "ProjectileSpeed": 25.0,
+            "ProjectileDuration": 0.0,
+            "BuffList": [],
+            "SkillDamage": 166,
+            "SkillScale": 1.0,
+            "HitEvents": [
+                {
+                    "EventID": 0,
+                    "Duration": 6.0,
+                    "Value": 0.0
+                },
+                {
+                    "EventID": 0,
+                    "Duration": 5.0,
+                    "Value": 100.0
+                }
+            ],
+            "KillEvents": []
+        },
+        {
+            "ID": 5020,
+            "SkillType": 2,
+            "SearchScope": 0,
+            "MaxTargets": 0,
+            "ProjectileType": 0,
+            "ProjectileHitType": 0,
+            "ProjectileSpeed": 0.0,
+            "ProjectileDuration": 0.0,
+            "BuffList": [],
+            "SkillDamage": 55,
+            "SkillScale": 1.0,
+            "HitEvents": [
+                {
+                    "EventID": 0,
+                    "Duration": 5.0,
+                    "Value": 25.0
+                }
+            ],
+            "KillEvents": []
+        },
+        {
+            "ID": 5019,
+            "SkillType": 1,
+            "SearchScope": 2,
+            "MaxTargets": 0,
+            "ProjectileType": 1,
+            "ProjectileHitType": 1,
+            "ProjectileSpeed": 20.0,
+            "ProjectileDuration": 0.800000011920929,
+            "BuffList": [],
+            "SkillDamage": 20,
+            "SkillScale": 1.0,
+            "HitEvents": [],
+            "KillEvents": []
+        }
+    ]
+}

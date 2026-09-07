@@ -1,0 +1,2413 @@
+{
+    "Stages": [
+        {
+            "StageId": 1,
+            "Paths": [
+                {
+                    "Waypoints": [
+                        {
+                            "x": -12.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 12.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        }
+                    ]
+                }
+            ],
+            "ClearGold": 100,
+            "Wave": [
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8001,
+                            "Count": 12,
+                            "SpawnDelay": 2.0
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8001,
+                            "Count": 20,
+                            "SpawnDelay": 1.0
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8001,
+                            "Count": 30,
+                            "SpawnDelay": 1.0
+                        },
+                        {
+                            "EnemyId": 8001,
+                            "Count": 30,
+                            "SpawnDelay": 0.5
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8001,
+                            "Count": 40,
+                            "SpawnDelay": 0.5
+                        },
+                        {
+                            "EnemyId": 8001,
+                            "Count": 40,
+                            "SpawnDelay": 0.3
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8001,
+                            "Count": 40,
+                            "SpawnDelay": 0.3
+                        },
+                        {
+                            "EnemyId": 8001,
+                            "Count": 60,
+                            "SpawnDelay": 0.2
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8001,
+                            "Count": 40,
+                            "SpawnDelay": 0.2
+                        },
+                        {
+                            "EnemyId": 8002,
+                            "Count": 10,
+                            "SpawnDelay": 1.5
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8001,
+                            "Count": 20,
+                            "SpawnDelay": 0.2
+                        },
+                        {
+                            "EnemyId": 8002,
+                            "Count": 25,
+                            "SpawnDelay": 1.2
+                        },
+                        {
+                            "EnemyId": 8002,
+                            "Count": 10,
+                            "SpawnDelay": 1.0
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8002,
+                            "Count": 25,
+                            "SpawnDelay": 0.6
+                        },
+                        {
+                            "EnemyId": 8002,
+                            "Count": 10,
+                            "SpawnDelay": 1.0
+                        }
+                    ]
+                }
+            ]
+        },
+
+        {
+            "StageId" : 2,
+            "Paths": [
+                {
+                    "Waypoints": [
+                        {
+                            "x": -12.0,
+                            "y": 7.5,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 5.5,
+                            "y": 7.5,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 5.5,
+                            "y": 0.5,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 11.0,
+                            "y": 0.5,
+                            "z": 0.0
+                        }
+                    ]
+                },
+                {
+                    "Waypoints": [
+                        {
+                            "x": -12.0,
+                            "y": -7.5,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 5.5,
+                            "y": -7.5,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 5.5,
+                            "y": 0.5,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 11.0,
+                            "y": 0.5,
+                            "z": 0.0
+                        }
+                    ]
+                }
+            ],
+            "ClearGold": 110,
+            "Wave": [
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8001,
+                            "Count": 12,
+                            "SpawnDelay": 2.0
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8001,
+                            "Count": 20,
+                            "SpawnDelay": 1.0
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8001,
+                            "Count": 30,
+                            "SpawnDelay": 1.0
+                        },
+                        {
+                            "EnemyId": 8001,
+                            "Count": 30,
+                            "SpawnDelay": 0.5
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8001,
+                            "Count": 40,
+                            "SpawnDelay": 0.5
+                        },
+                        {
+                            "EnemyId": 8001,
+                            "Count": 40,
+                            "SpawnDelay": 0.30000001192092898
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8001,
+                            "Count": 40,
+                            "SpawnDelay": 0.30000001192092898
+                        },
+                        {
+                            "EnemyId": 8001,
+                            "Count": 60,
+                            "SpawnDelay": 0.20000000298023225
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8001,
+                            "Count": 40,
+                            "SpawnDelay": 0.20000000298023225
+                        },
+                        {
+                            "EnemyId": 8002,
+                            "Count": 10,
+                            "SpawnDelay": 1.5
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8001,
+                            "Count": 20,
+                            "SpawnDelay": 0.20000000298023225
+                        },
+                        {
+                            "EnemyId": 8002,
+                            "Count": 25,
+                            "SpawnDelay": 1.2000000476837159
+                        },
+                        {
+                            "EnemyId": 8002,
+                            "Count": 10,
+                            "SpawnDelay": 1.0
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8002,
+                            "Count": 25,
+                            "SpawnDelay": 0.699999988079071
+                        },
+                        {
+                            "EnemyId": 8002,
+                            "Count": 25,
+                            "SpawnDelay": 0.5
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8002,
+                            "Count": 30,
+                            "SpawnDelay": 0.5
+                        },
+                        {
+                            "EnemyId": 8002,
+                            "Count": 50,
+                            "SpawnDelay": 0.30000001192092898
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8002,
+                            "Count": 50,
+                            "SpawnDelay": 0.20000000298023225
+                        },
+                        {
+                            "EnemyId": 8003,
+                            "Count": 10,
+                            "SpawnDelay": 1.5
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8003,
+                            "Count": 10,
+                            "SpawnDelay": 1.0
+                        },
+                        {
+                            "EnemyId": 8002,
+                            "Count": 10,
+                            "SpawnDelay": 0.20000000298023225
+                        },
+                        {
+                            "EnemyId": 8003,
+                            "Count": 10,
+                            "SpawnDelay": 1.0
+                        },
+                        {
+                            "EnemyId": 8002,
+                            "Count": 20,
+                            "SpawnDelay": 0.20000000298023225
+                        },
+                        {
+                            "EnemyId": 8003,
+                            "Count": 20,
+                            "SpawnDelay": 0.800000011920929
+                        }
+                    ]
+                }
+            ]
+        },
+
+        {
+            "StageId": 3,
+            "Paths": [
+                {
+                    "Waypoints": [
+                        {
+                            "x": -10.0,
+                            "y": 9.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -10.0,
+                            "y": 1.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -2.0,
+                            "y": 1.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -2.0,
+                            "y": -6.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 5.0,
+                            "y": -6.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 5.0,
+                            "y": 3.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 12.0,
+                            "y": 3.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 12.0,
+                            "y": 3.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 12.0,
+                            "y": -1.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 18.0,
+                            "y": -1.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 18.0,
+                            "y": -11.0,
+                            "z": 0.0
+                        }
+                    ]
+                }
+            ],
+            "ClearGold": 120,
+            "Wave": [
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8001,
+                            "Count": 12,
+                            "SpawnDelay": 2.0
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8001,
+                            "Count": 20,
+                            "SpawnDelay": 1.0
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8001,
+                            "Count": 30,
+                            "SpawnDelay": 1.0
+                        },
+                        {
+                            "EnemyId": 8001,
+                            "Count": 30,
+                            "SpawnDelay": 0.5
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8001,
+                            "Count": 40,
+                            "SpawnDelay": 1.0
+                        },
+                        {
+                            "EnemyId": 8002,
+                            "Count": 20,
+                            "SpawnDelay": 1.0
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8002,
+                            "Count": 30,
+                            "SpawnDelay": 0.5
+                        },
+                        {
+                            "EnemyId": 8002,
+                            "Count": 20,
+                            "SpawnDelay": 0.30000001192092898
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8003,
+                            "Count": 10,
+                            "SpawnDelay": 1.0
+                        },
+                        {
+                            "EnemyId": 8002,
+                            "Count": 20,
+                            "SpawnDelay": 0.30000001192092898
+                        },
+                        {
+                            "EnemyId": 8002,
+                            "Count": 10,
+                            "SpawnDelay": 1.0
+                        },
+                        {
+                            "EnemyId": 8002,
+                            "Count": 20,
+                            "SpawnDelay": 0.20000000298023225
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8004,
+                            "Count": 20,
+                            "SpawnDelay": 1.0
+                        },
+                        {
+                            "EnemyId": 8002,
+                            "Count": 10,
+                            "SpawnDelay": 2.0
+                        },
+                        {
+                            "EnemyId": 8003,
+                            "Count": 20,
+                            "SpawnDelay": 0.800000011920929
+                        },
+                        {
+                            "EnemyId": 8004,
+                            "Count": 20,
+                            "SpawnDelay": 1.0
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8003,
+                            "Count": 20,
+                            "SpawnDelay": 0.5
+                        },
+                        {
+                            "EnemyId": 8004,
+                            "Count": 20,
+                            "SpawnDelay": 0.800000011920929
+                        },
+                        {
+                            "EnemyId": 8003,
+                            "Count": 20,
+                            "SpawnDelay": 0.5
+                        },
+                        {
+                            "EnemyId": 8004,
+                            "Count": 20,
+                            "SpawnDelay": 0.800000011920929
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8003,
+                            "Count": 15,
+                            "SpawnDelay": 0.30000001192092898
+                        },
+                        {
+                            "EnemyId": 8004,
+                            "Count": 30,
+                            "SpawnDelay": 0.20000000298023225
+                        },
+                        {
+                            "EnemyId": 8003,
+                            "Count": 15,
+                            "SpawnDelay": 0.30000001192092898
+                        },
+                        {
+                            "EnemyId": 8004,
+                            "Count": 25,
+                            "SpawnDelay": 0.5
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8003,
+                            "Count": 20,
+                            "SpawnDelay": 0.20000000298023225
+                        },
+                        {
+                            "EnemyId": 8004,
+                            "Count": 30,
+                            "SpawnDelay": 0.30000001192092898
+                        },
+                        {
+                            "EnemyId": 8003,
+                            "Count": 20,
+                            "SpawnDelay": 0.20000000298023225
+                        },
+                        {
+                            "EnemyId": 8004,
+                            "Count": 30,
+                            "SpawnDelay": 0.30000001192092898
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8003,
+                            "Count": 30,
+                            "SpawnDelay": 0.10000000149011612
+                        },
+                        {
+                            "EnemyId": 8004,
+                            "Count": 40,
+                            "SpawnDelay": 0.15000000596046449
+                        },
+                        {
+                            "EnemyId": 8005,
+                            "Count": 20,
+                            "SpawnDelay": 0.699999988079071
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8005,
+                            "Count": 30,
+                            "SpawnDelay": 0.5
+                        },
+                        {
+                            "EnemyId": 8007,
+                            "Count": 1,
+                            "SpawnDelay": 1.0
+                        },
+                        {
+                            "EnemyId": 8006,
+                            "Count": 20,
+                            "SpawnDelay": 2.0
+                        },
+                        {
+                            "EnemyId": 8007,
+                            "Count": 1,
+                            "SpawnDelay": 1.0
+                        },
+                        {
+                            "EnemyId": 8005,
+                            "Count": 30,
+                            "SpawnDelay": 0.30000001192092898
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8006,
+                            "Count": 20,
+                            "SpawnDelay": 1.0
+                        },
+                        {
+                            "EnemyId": 8007,
+                            "Count": 2,
+                            "SpawnDelay": 0.5
+                        },
+                        {
+                            "EnemyId": 8005,
+                            "Count": 40,
+                            "SpawnDelay": 0.20000000298023225
+                        },
+                        {
+                            "EnemyId": 8007,
+                            "Count": 2,
+                            "SpawnDelay": 0.5
+                        },
+                        {
+                            "EnemyId": 8006,
+                            "Count": 20,
+                            "SpawnDelay": 0.75
+                        }
+                    ]
+                }
+            ]
+        },
+
+        {
+            "StageId": 4,
+            "Paths": [
+                {
+                    "Waypoints": [
+                        {
+                            "x": -18.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 18.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        }
+                    ]
+                },
+                {
+                    "Waypoints": [
+                        {
+                            "x": 0.0,
+                            "y": -11.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 18.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        }
+                    ]
+                },
+                {
+                    "Waypoints": [
+                        {
+                            "x": 0.0,
+                            "y": 11.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 0.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 18.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        }
+                    ]
+                }
+            ],
+            "ClearGold": 150,
+            "Wave": [
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8001,
+                            "Count": 12,
+                            "SpawnDelay": 2.0
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8001,
+                            "Count": 20,
+                            "SpawnDelay": 1.0
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8001,
+                            "Count": 30,
+                            "SpawnDelay": 1.0
+                        },
+                        {
+                            "EnemyId": 8001,
+                            "Count": 30,
+                            "SpawnDelay": 0.5
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8001,
+                            "Count": 40,
+                            "SpawnDelay": 1.0
+                        },
+                        {
+                            "EnemyId": 8002,
+                            "Count": 20,
+                            "SpawnDelay": 1.0
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8002,
+                            "Count": 30,
+                            "SpawnDelay": 0.5
+                        },
+                        {
+                            "EnemyId": 8002,
+                            "Count": 20,
+                            "SpawnDelay": 0.30000001192092898
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8003,
+                            "Count": 10,
+                            "SpawnDelay": 1.0
+                        },
+                        {
+                            "EnemyId": 8002,
+                            "Count": 20,
+                            "SpawnDelay": 0.30000001192092898
+                        },
+                        {
+                            "EnemyId": 8002,
+                            "Count": 10,
+                            "SpawnDelay": 1.0
+                        },
+                        {
+                            "EnemyId": 8002,
+                            "Count": 20,
+                            "SpawnDelay": 0.20000000298023225
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8004,
+                            "Count": 20,
+                            "SpawnDelay": 1.0
+                        },
+                        {
+                            "EnemyId": 8002,
+                            "Count": 10,
+                            "SpawnDelay": 2.0
+                        },
+                        {
+                            "EnemyId": 8003,
+                            "Count": 20,
+                            "SpawnDelay": 0.800000011920929
+                        },
+                        {
+                            "EnemyId": 8004,
+                            "Count": 20,
+                            "SpawnDelay": 1.0
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8003,
+                            "Count": 20,
+                            "SpawnDelay": 0.5
+                        },
+                        {
+                            "EnemyId": 8004,
+                            "Count": 20,
+                            "SpawnDelay": 0.800000011920929
+                        },
+                        {
+                            "EnemyId": 8003,
+                            "Count": 20,
+                            "SpawnDelay": 0.5
+                        },
+                        {
+                            "EnemyId": 8004,
+                            "Count": 20,
+                            "SpawnDelay": 0.800000011920929
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8003,
+                            "Count": 15,
+                            "SpawnDelay": 0.30000001192092898
+                        },
+                        {
+                            "EnemyId": 8004,
+                            "Count": 30,
+                            "SpawnDelay": 0.20000000298023225
+                        },
+                        {
+                            "EnemyId": 8003,
+                            "Count": 15,
+                            "SpawnDelay": 0.30000001192092898
+                        },
+                        {
+                            "EnemyId": 8004,
+                            "Count": 25,
+                            "SpawnDelay": 0.5
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8003,
+                            "Count": 20,
+                            "SpawnDelay": 0.20000000298023225
+                        },
+                        {
+                            "EnemyId": 8004,
+                            "Count": 30,
+                            "SpawnDelay": 0.30000001192092898
+                        },
+                        {
+                            "EnemyId": 8003,
+                            "Count": 20,
+                            "SpawnDelay": 0.20000000298023225
+                        },
+                        {
+                            "EnemyId": 8004,
+                            "Count": 30,
+                            "SpawnDelay": 0.30000001192092898
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8003,
+                            "Count": 30,
+                            "SpawnDelay": 0.10000000149011612
+                        },
+                        {
+                            "EnemyId": 8004,
+                            "Count": 40,
+                            "SpawnDelay": 0.15000000596046449
+                        },
+                        {
+                            "EnemyId": 8005,
+                            "Count": 20,
+                            "SpawnDelay": 0.699999988079071
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8005,
+                            "Count": 30,
+                            "SpawnDelay": 0.5
+                        },
+                        {
+                            "EnemyId": 8007,
+                            "Count": 1,
+                            "SpawnDelay": 1.0
+                        },
+                        {
+                            "EnemyId": 8006,
+                            "Count": 20,
+                            "SpawnDelay": 2.0
+                        },
+                        {
+                            "EnemyId": 8007,
+                            "Count": 1,
+                            "SpawnDelay": 1.0
+                        },
+                        {
+                            "EnemyId": 8005,
+                            "Count": 30,
+                            "SpawnDelay": 0.30000001192092898
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8006,
+                            "Count": 20,
+                            "SpawnDelay": 1.0
+                        },
+                        {
+                            "EnemyId": 8007,
+                            "Count": 2,
+                            "SpawnDelay": 0.5
+                        },
+                        {
+                            "EnemyId": 8005,
+                            "Count": 40,
+                            "SpawnDelay": 0.20000000298023225
+                        },
+                        {
+                            "EnemyId": 8007,
+                            "Count": 2,
+                            "SpawnDelay": 0.5
+                        },
+                        {
+                            "EnemyId": 8006,
+                            "Count": 20,
+                            "SpawnDelay": 0.75
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8007,
+                            "Count": 5,
+                            "SpawnDelay": 1.0
+                        },
+                        {
+                            "EnemyId": 8005,
+                            "Count": 30,
+                            "SpawnDelay": 0.5
+                        },
+                        {
+                            "EnemyId": 8006,
+                            "Count": 20,
+                            "SpawnDelay": 0.5
+                        },
+                        {
+                            "EnemyId": 8006,
+                            "Count": 20,
+                            "SpawnDelay": 0.4000000059604645
+                        },
+                        {
+                            "EnemyId": 8006,
+                            "Count": 20,
+                            "SpawnDelay": 0.20000000298023225
+                        },
+                        {
+                            "EnemyId": 8007,
+                            "Count": 3,
+                            "SpawnDelay": 0.800000011920929
+                        },
+                        {
+                            "EnemyId": 8006,
+                            "Count": 20,
+                            "SpawnDelay": 0.15000000596046449
+                        }
+                    ]
+                }
+            ]
+        },
+
+        {
+            "StageId": 5,
+            "Paths": [
+                {
+                    "Waypoints": [
+                        {
+                            "x": -16.0,
+                            "y": -13.5,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 11.5,
+                            "y": -13.5,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 11.5,
+                            "y": -1.5,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -12.5,
+                            "y": -1.5,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -12.5,
+                            "y": 13.5,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -2.5,
+                            "y": 13.5,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -2.5,
+                            "y": 6.5,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -7.5,
+                            "y": 6.5,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -7.5,
+                            "y": 2.5,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 11.5,
+                            "y": 2.5,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 11.5,
+                            "y": 10.5,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 1.5,
+                            "y": 10.5,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 1.5,
+                            "y": 14.5,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 16.0,
+                            "y": 14.5,
+                            "z": 0.0
+                        }
+                    ]
+                }
+            ],
+            "ClearGold": 170,
+            "Wave": [
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8001,
+                            "Count": 12,
+                            "SpawnDelay": 2.0
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8001,
+                            "Count": 20,
+                            "SpawnDelay": 1.0
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8001,
+                            "Count": 30,
+                            "SpawnDelay": 1.0
+                        },
+                        {
+                            "EnemyId": 8001,
+                            "Count": 30,
+                            "SpawnDelay": 0.5
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8001,
+                            "Count": 40,
+                            "SpawnDelay": 1.0
+                        },
+                        {
+                            "EnemyId": 8002,
+                            "Count": 20,
+                            "SpawnDelay": 1.0
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8002,
+                            "Count": 30,
+                            "SpawnDelay": 0.5
+                        },
+                        {
+                            "EnemyId": 8002,
+                            "Count": 20,
+                            "SpawnDelay": 0.30000001192092898
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8003,
+                            "Count": 10,
+                            "SpawnDelay": 1.0
+                        },
+                        {
+                            "EnemyId": 8002,
+                            "Count": 20,
+                            "SpawnDelay": 0.30000001192092898
+                        },
+                        {
+                            "EnemyId": 8002,
+                            "Count": 10,
+                            "SpawnDelay": 1.0
+                        },
+                        {
+                            "EnemyId": 8002,
+                            "Count": 20,
+                            "SpawnDelay": 0.20000000298023225
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8004,
+                            "Count": 20,
+                            "SpawnDelay": 1.0
+                        },
+                        {
+                            "EnemyId": 8002,
+                            "Count": 10,
+                            "SpawnDelay": 2.0
+                        },
+                        {
+                            "EnemyId": 8003,
+                            "Count": 20,
+                            "SpawnDelay": 0.800000011920929
+                        },
+                        {
+                            "EnemyId": 8004,
+                            "Count": 20,
+                            "SpawnDelay": 1.0
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8003,
+                            "Count": 20,
+                            "SpawnDelay": 0.5
+                        },
+                        {
+                            "EnemyId": 8004,
+                            "Count": 20,
+                            "SpawnDelay": 0.800000011920929
+                        },
+                        {
+                            "EnemyId": 8003,
+                            "Count": 20,
+                            "SpawnDelay": 0.5
+                        },
+                        {
+                            "EnemyId": 8004,
+                            "Count": 20,
+                            "SpawnDelay": 0.800000011920929
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8003,
+                            "Count": 15,
+                            "SpawnDelay": 0.30000001192092898
+                        },
+                        {
+                            "EnemyId": 8004,
+                            "Count": 30,
+                            "SpawnDelay": 0.20000000298023225
+                        },
+                        {
+                            "EnemyId": 8003,
+                            "Count": 15,
+                            "SpawnDelay": 0.30000001192092898
+                        },
+                        {
+                            "EnemyId": 8004,
+                            "Count": 25,
+                            "SpawnDelay": 0.5
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8003,
+                            "Count": 20,
+                            "SpawnDelay": 0.20000000298023225
+                        },
+                        {
+                            "EnemyId": 8004,
+                            "Count": 30,
+                            "SpawnDelay": 0.30000001192092898
+                        },
+                        {
+                            "EnemyId": 8003,
+                            "Count": 20,
+                            "SpawnDelay": 0.20000000298023225
+                        },
+                        {
+                            "EnemyId": 8004,
+                            "Count": 30,
+                            "SpawnDelay": 0.30000001192092898
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8003,
+                            "Count": 30,
+                            "SpawnDelay": 0.10000000149011612
+                        },
+                        {
+                            "EnemyId": 8004,
+                            "Count": 40,
+                            "SpawnDelay": 0.15000000596046449
+                        },
+                        {
+                            "EnemyId": 8005,
+                            "Count": 20,
+                            "SpawnDelay": 0.699999988079071
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8005,
+                            "Count": 30,
+                            "SpawnDelay": 0.5
+                        },
+                        {
+                            "EnemyId": 8007,
+                            "Count": 1,
+                            "SpawnDelay": 1.0
+                        },
+                        {
+                            "EnemyId": 8006,
+                            "Count": 20,
+                            "SpawnDelay": 2.0
+                        },
+                        {
+                            "EnemyId": 8007,
+                            "Count": 1,
+                            "SpawnDelay": 1.0
+                        },
+                        {
+                            "EnemyId": 8005,
+                            "Count": 30,
+                            "SpawnDelay": 0.30000001192092898
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8006,
+                            "Count": 20,
+                            "SpawnDelay": 1.0
+                        },
+                        {
+                            "EnemyId": 8007,
+                            "Count": 2,
+                            "SpawnDelay": 0.5
+                        },
+                        {
+                            "EnemyId": 8005,
+                            "Count": 40,
+                            "SpawnDelay": 0.20000000298023225
+                        },
+                        {
+                            "EnemyId": 8007,
+                            "Count": 2,
+                            "SpawnDelay": 0.5
+                        },
+                        {
+                            "EnemyId": 8006,
+                            "Count": 20,
+                            "SpawnDelay": 0.75
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8007,
+                            "Count": 5,
+                            "SpawnDelay": 1.0
+                        },
+                        {
+                            "EnemyId": 8005,
+                            "Count": 30,
+                            "SpawnDelay": 0.5
+                        },
+                        {
+                            "EnemyId": 8006,
+                            "Count": 20,
+                            "SpawnDelay": 0.5
+                        },
+                        {
+                            "EnemyId": 8006,
+                            "Count": 20,
+                            "SpawnDelay": 0.4000000059604645
+                        },
+                        {
+                            "EnemyId": 8006,
+                            "Count": 20,
+                            "SpawnDelay": 0.20000000298023225
+                        },
+                        {
+                            "EnemyId": 8007,
+                            "Count": 3,
+                            "SpawnDelay": 0.800000011920929
+                        },
+                        {
+                            "EnemyId": 8006,
+                            "Count": 20,
+                            "SpawnDelay": 0.15000000596046449
+                        }
+                    ]
+                }
+            ]
+        },
+
+        {
+            "StageId": 6,
+            "Paths": [
+                {
+                    "Waypoints": [
+                        {
+                            "x": -26.0,
+                            "y": 2.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -18.5,
+                            "y": 2.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -17.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -9.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -7.5,
+                            "y": 2.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -0.5,
+                            "y": 2.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 1.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 9.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 10.5,
+                            "y": 2.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 16.5,
+                            "y": 2.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 18.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 26.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        }
+                    ]
+                },
+                {
+                    "Waypoints": [
+                        {
+                            "x": -26.0,
+                            "y": 2.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -18.5,
+                            "y": 2.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -17.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -9.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -7.5,
+                            "y": 2.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -0.5,
+                            "y": 2.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 1.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 9.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 10.5,
+                            "y": -2.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 16.5,
+                            "y": -2.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 18.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 26.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        }
+                    ]
+                },
+                {
+                    "Waypoints": [
+                        {
+                            "x": -26.0,
+                            "y": 2.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -18.5,
+                            "y": 2.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -17.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -9.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -7.5,
+                            "y": -2.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -0.5,
+                            "y": -2.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 1.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 9.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 10.5,
+                            "y": -2.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 16.5,
+                            "y": -2.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 18.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 26.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        }
+                    ]
+                },
+                {
+                    "Waypoints": [
+                        {
+                            "x": -26.0,
+                            "y": -2.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -18.5,
+                            "y": -2.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -17.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -9.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -7.5,
+                            "y": -2.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -0.5,
+                            "y": -2.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 1.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 9.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 10.5,
+                            "y": -2.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 16.5,
+                            "y": -2.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 18.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 26.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        }
+                    ]
+                },
+                {
+                    "Waypoints": [
+                        {
+                            "x": -26.0,
+                            "y": -2.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -18.5,
+                            "y": -2.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -17.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -9.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -7.5,
+                            "y": 2.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -0.5,
+                            "y": 2.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 1.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 9.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 10.5,
+                            "y": -2.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 16.5,
+                            "y": -2.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 18.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 26.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        }
+                    ]
+                },
+                {
+                    "Waypoints": [
+                        {
+                            "x": -26.0,
+                            "y": -2.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -18.5,
+                            "y": -2.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -17.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -9.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -7.5,
+                            "y": 2.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -0.5,
+                            "y": 2.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 1.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 9.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 10.5,
+                            "y": 2.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 16.5,
+                            "y": 2.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 18.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 26.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        }
+                    ]
+                },
+                {
+                    "Waypoints": [
+                        {
+                            "x": -26.0,
+                            "y": -2.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -18.5,
+                            "y": -2.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -17.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -9.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -7.5,
+                            "y": -2.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -0.5,
+                            "y": -2.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 1.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 9.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 10.5,
+                            "y": 2.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 16.5,
+                            "y": 2.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 18.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 26.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        }
+                    ]
+                },
+                {
+                    "Waypoints": [
+                        {
+                            "x": -26.0,
+                            "y": 2.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -18.5,
+                            "y": 2.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -17.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -9.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -7.5,
+                            "y": -2.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": -0.5,
+                            "y": -2.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 1.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 9.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 10.5,
+                            "y": 2.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 16.5,
+                            "y": 2.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 18.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        },
+                        {
+                            "x": 26.0,
+                            "y": 0.0,
+                            "z": 0.0
+                        }
+                    ]
+                }
+            ],
+            "ClearGold": 200,
+            "Wave": [
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8001,
+                            "Count": 12,
+                            "SpawnDelay": 2.0
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8001,
+                            "Count": 20,
+                            "SpawnDelay": 1.0
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8001,
+                            "Count": 30,
+                            "SpawnDelay": 1.0
+                        },
+                        {
+                            "EnemyId": 8001,
+                            "Count": 30,
+                            "SpawnDelay": 0.5
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8001,
+                            "Count": 40,
+                            "SpawnDelay": 1.0
+                        },
+                        {
+                            "EnemyId": 8002,
+                            "Count": 20,
+                            "SpawnDelay": 1.0
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8002,
+                            "Count": 30,
+                            "SpawnDelay": 0.5
+                        },
+                        {
+                            "EnemyId": 8002,
+                            "Count": 20,
+                            "SpawnDelay": 0.30000001192092898
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8003,
+                            "Count": 10,
+                            "SpawnDelay": 1.0
+                        },
+                        {
+                            "EnemyId": 8002,
+                            "Count": 20,
+                            "SpawnDelay": 0.30000001192092898
+                        },
+                        {
+                            "EnemyId": 8002,
+                            "Count": 10,
+                            "SpawnDelay": 1.0
+                        },
+                        {
+                            "EnemyId": 8002,
+                            "Count": 20,
+                            "SpawnDelay": 0.20000000298023225
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8004,
+                            "Count": 20,
+                            "SpawnDelay": 1.0
+                        },
+                        {
+                            "EnemyId": 8002,
+                            "Count": 10,
+                            "SpawnDelay": 2.0
+                        },
+                        {
+                            "EnemyId": 8003,
+                            "Count": 20,
+                            "SpawnDelay": 0.800000011920929
+                        },
+                        {
+                            "EnemyId": 8004,
+                            "Count": 20,
+                            "SpawnDelay": 1.0
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8003,
+                            "Count": 20,
+                            "SpawnDelay": 0.5
+                        },
+                        {
+                            "EnemyId": 8004,
+                            "Count": 20,
+                            "SpawnDelay": 0.800000011920929
+                        },
+                        {
+                            "EnemyId": 8003,
+                            "Count": 20,
+                            "SpawnDelay": 0.5
+                        },
+                        {
+                            "EnemyId": 8004,
+                            "Count": 20,
+                            "SpawnDelay": 0.800000011920929
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8003,
+                            "Count": 15,
+                            "SpawnDelay": 0.30000001192092898
+                        },
+                        {
+                            "EnemyId": 8004,
+                            "Count": 30,
+                            "SpawnDelay": 0.20000000298023225
+                        },
+                        {
+                            "EnemyId": 8003,
+                            "Count": 15,
+                            "SpawnDelay": 0.30000001192092898
+                        },
+                        {
+                            "EnemyId": 8004,
+                            "Count": 25,
+                            "SpawnDelay": 0.5
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8003,
+                            "Count": 20,
+                            "SpawnDelay": 0.20000000298023225
+                        },
+                        {
+                            "EnemyId": 8004,
+                            "Count": 30,
+                            "SpawnDelay": 0.30000001192092898
+                        },
+                        {
+                            "EnemyId": 8003,
+                            "Count": 20,
+                            "SpawnDelay": 0.20000000298023225
+                        },
+                        {
+                            "EnemyId": 8004,
+                            "Count": 30,
+                            "SpawnDelay": 0.30000001192092898
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8003,
+                            "Count": 30,
+                            "SpawnDelay": 0.10000000149011612
+                        },
+                        {
+                            "EnemyId": 8004,
+                            "Count": 40,
+                            "SpawnDelay": 0.15000000596046449
+                        },
+                        {
+                            "EnemyId": 8005,
+                            "Count": 20,
+                            "SpawnDelay": 0.699999988079071
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8005,
+                            "Count": 30,
+                            "SpawnDelay": 0.5
+                        },
+                        {
+                            "EnemyId": 8007,
+                            "Count": 1,
+                            "SpawnDelay": 1.0
+                        },
+                        {
+                            "EnemyId": 8006,
+                            "Count": 20,
+                            "SpawnDelay": 2.0
+                        },
+                        {
+                            "EnemyId": 8007,
+                            "Count": 1,
+                            "SpawnDelay": 1.0
+                        },
+                        {
+                            "EnemyId": 8005,
+                            "Count": 30,
+                            "SpawnDelay": 0.30000001192092898
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8006,
+                            "Count": 20,
+                            "SpawnDelay": 1.0
+                        },
+                        {
+                            "EnemyId": 8007,
+                            "Count": 2,
+                            "SpawnDelay": 0.5
+                        },
+                        {
+                            "EnemyId": 8005,
+                            "Count": 40,
+                            "SpawnDelay": 0.20000000298023225
+                        },
+                        {
+                            "EnemyId": 8007,
+                            "Count": 2,
+                            "SpawnDelay": 0.5
+                        },
+                        {
+                            "EnemyId": 8006,
+                            "Count": 20,
+                            "SpawnDelay": 0.75
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8007,
+                            "Count": 5,
+                            "SpawnDelay": 1.0
+                        },
+                        {
+                            "EnemyId": 8005,
+                            "Count": 30,
+                            "SpawnDelay": 0.5
+                        },
+                        {
+                            "EnemyId": 8006,
+                            "Count": 20,
+                            "SpawnDelay": 0.5
+                        },
+                        {
+                            "EnemyId": 8006,
+                            "Count": 20,
+                            "SpawnDelay": 0.4000000059604645
+                        },
+                        {
+                            "EnemyId": 8006,
+                            "Count": 20,
+                            "SpawnDelay": 0.20000000298023225
+                        },
+                        {
+                            "EnemyId": 8007,
+                            "Count": 3,
+                            "SpawnDelay": 0.800000011920929
+                        },
+                        {
+                            "EnemyId": 8006,
+                            "Count": 20,
+                            "SpawnDelay": 0.15000000596046449
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8007,
+                            "Count": 8,
+                            "SpawnDelay": 1.0
+                        },
+                        {
+                            "EnemyId": 8008,
+                            "Count": 10,
+                            "SpawnDelay": 1.0
+                        },
+                        {
+                            "EnemyId": 8007,
+                            "Count": 1,
+                            "SpawnDelay": 5.0
+                        },
+                        {
+                            "EnemyId": 8007,
+                            "Count": 9,
+                            "SpawnDelay": 0.800000011920929
+                        },
+                        {
+                            "EnemyId": 8008,
+                            "Count": 10,
+                            "SpawnDelay": 1.0
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8007,
+                            "Count": 8,
+                            "SpawnDelay": 1.0
+                        },
+                        {
+                            "EnemyId": 8008,
+                            "Count": 10,
+                            "SpawnDelay": 1.0
+                        },
+                        {
+                            "EnemyId": 8007,
+                            "Count": 1,
+                            "SpawnDelay": 5.0
+                        },
+                        {
+                            "EnemyId": 8007,
+                            "Count": 9,
+                            "SpawnDelay": 0.800000011920929
+                        },
+                        {
+                            "EnemyId": 8006,
+                            "Count": 30,
+                            "SpawnDelay": 0.75
+                        },
+                        {
+                            "EnemyId": 8007,
+                            "Count": 1,
+                            "SpawnDelay": 5.0
+                        },
+                        {
+                            "EnemyId": 8007,
+                            "Count": 9,
+                            "SpawnDelay": 0.6000000238418579
+                        },
+                        {
+                            "EnemyId": 8008,
+                            "Count": 15,
+                            "SpawnDelay": 1.0
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8007,
+                            "Count": 10,
+                            "SpawnDelay": 0.800000011920929
+                        },
+                        {
+                            "EnemyId": 8008,
+                            "Count": 20,
+                            "SpawnDelay": 0.75
+                        },
+                        {
+                            "EnemyId": 8007,
+                            "Count": 1,
+                            "SpawnDelay": 5.0
+                        },
+                        {
+                            "EnemyId": 8007,
+                            "Count": 9,
+                            "SpawnDelay": 0.800000011920929
+                        },
+                        {
+                            "EnemyId": 8008,
+                            "Count": 30,
+                            "SpawnDelay": 0.75
+                        },
+                        {
+                            "EnemyId": 8007,
+                            "Count": 1,
+                            "SpawnDelay": 5.0
+                        },
+                        {
+                            "EnemyId": 8007,
+                            "Count": 9,
+                            "SpawnDelay": 0.6000000238418579
+                        },
+                        {
+                            "EnemyId": 8008,
+                            "Count": 30,
+                            "SpawnDelay": 0.75
+                        }
+                    ]
+                },
+                {
+                    "EnemyList": [
+                        {
+                            "EnemyId": 8007,
+                            "Count": 10,
+                            "SpawnDelay": 0.5
+                        },
+                        {
+                            "EnemyId": 8008,
+                            "Count": 20,
+                            "SpawnDelay": 0.25
+                        },
+                        {
+                            "EnemyId": 8007,
+                            "Count": 1,
+                            "SpawnDelay": 5.0
+                        },
+                        {
+                            "EnemyId": 8007,
+                            "Count": 9,
+                            "SpawnDelay": 0.5
+                        },
+                        {
+                            "EnemyId": 8006,
+                            "Count": 25,
+                            "SpawnDelay": 0.30000001192092898
+                        },
+                        {
+                            "EnemyId": 8008,
+                            "Count": 20,
+                            "SpawnDelay": 0.25
+                        },
+                        {
+                            "EnemyId": 8007,
+                            "Count": 1,
+                            "SpawnDelay": 5.0
+                        },
+                        {
+                            "EnemyId": 8007,
+                            "Count": 14,
+                            "SpawnDelay": 0.5
+                        },
+                        {
+                            "EnemyId": 8005,
+                            "Count": 40,
+                            "SpawnDelay": 0.20000000298023225
+                        },
+                        {
+                            "EnemyId": 8008,
+                            "Count": 35,
+                            "SpawnDelay": 0.25
+                        },
+                        {
+                            "EnemyId": 8006,
+                            "Count": 35,
+                            "SpawnDelay": 0.25
+                        },
+                        {
+                            "EnemyId": 8009,
+                            "Count": 1,
+                            "SpawnDelay": 10.0
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

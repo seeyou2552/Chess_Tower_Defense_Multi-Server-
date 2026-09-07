@@ -1,0 +1,74 @@
+{
+    "Enemies": [
+        {
+            "EnemyId": 8005,
+            "MaxHP": 1000.0,
+            "AttackDamage": 20,
+            "MoveSpeed": 3.0,
+            "Reward": 65
+        },
+        {
+            "EnemyId": 8006,
+            "MaxHP": 1000.0,
+            "AttackDamage": 10,
+            "MoveSpeed": 5.0,
+            "Reward": 80
+        },
+        {
+            "EnemyId": 8003,
+            "MaxHP": 400.0,
+            "AttackDamage": 15,
+            "MoveSpeed": 2.0,
+            "Reward": 35
+        },
+        {
+            "EnemyId": 8008,
+            "MaxHP": 8000.0,
+            "AttackDamage": 10,
+            "MoveSpeed": 3.0,
+            "Reward": 200
+        },
+        {
+            "EnemyId": 8010,
+            "MaxHP": 2000.0,
+            "AttackDamage": 80,
+            "MoveSpeed": 2.0,
+            "Reward": 2000
+        },
+        {
+            "EnemyId": 8004,
+            "MaxHP": 350.0,
+            "AttackDamage": 10,
+            "MoveSpeed": 6.0,
+            "Reward": 50
+        },
+        {
+            "EnemyId": 8001,
+            "MaxHP": 12.0,
+            "AttackDamage": 5,
+            "MoveSpeed": 2.0,
+            "Reward": 10
+        },
+        {
+            "EnemyId": 8009,
+            "MaxHP": 50000.0,
+            "AttackDamage": 70,
+            "MoveSpeed": 2.0,
+            "Reward": 1000
+        },
+        {
+            "EnemyId": 8007,
+            "MaxHP": 10000.0,
+            "AttackDamage": 50,
+            "MoveSpeed": 2.0,
+            "Reward": 100
+        },
+        {
+            "EnemyId": 8002,
+            "MaxHP": 70.0,
+            "AttackDamage": 7,
+            "MoveSpeed": 3.0,
+            "Reward": 20
+        }
+    ]
+}
