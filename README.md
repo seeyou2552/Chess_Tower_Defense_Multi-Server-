@@ -26,7 +26,6 @@
 
   * C++ 기반 게임 서버 아키텍처 설계 및 구현
   * TCP 기반 Client / Server 네트워크 통신 구현
-  * Packet Header 및 Serialization / Deserialization 구조 설계
   * Session 및 Packet Dispatcher 구현
   * Login / Register 및 MySQL 연동
   * Player / Room / Enemy / Minion 등 게임 서버 시스템 구현
@@ -61,7 +60,6 @@ Chess Tower Defense는 체스 기물을 기반으로 한 Tower Defense 게임입
 * Player 상태
 * Room 상태
 * Stage 상태
-* Wave 상태
 * Enemy 상태
 * Minion 상태
 * Projectile 상태
@@ -204,17 +202,6 @@ CTD_Server/
 │   │   ├── Wave.h
 │   │   └── Projectile.h
 │   │
-│   ├── Manager/
-│   │   ├── PlayerManager.h
-│   │   ├── AccountManager.h
-│   │   ├── RoomManager.h
-│   │   ├── EnemyManager.h
-│   │   ├── MinionManager.h
-│   │   ├── SpawnManager.h
-│   │   ├── ObjectPoolManager.h
-│   │   ├── StageManager.h
-│   │   └── TickManager.h
-│   │
 │   └── Database/
 │       └── Database.h
 │
@@ -222,11 +209,9 @@ CTD_Server/
 │   ├── Core/
 │   ├── Network/
 │   ├── Game/
-│   ├── Manager/
 │   ├── Database/
 │   └── main.cpp
 │
-└── README.md
 ```
 
 </details>
