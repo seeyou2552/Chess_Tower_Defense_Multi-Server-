@@ -4,11 +4,13 @@
 #include "Game/Enemy/Enemy.h"
 #include "Game/Room.h"
 
+#include "Core/Logger.h"
+
 void SlowOnHitEvent::OnHit(
-    const std::shared_ptr<Minion>&,
+    const std::shared_ptr<Minion>& minion,
     const std::shared_ptr<Enemy>& enemy,
     const HitEventData& data,
-    const std::shared_ptr<Room>&
+    const std::shared_ptr<Room>& room
 )
 {
     if (!enemy)
@@ -18,10 +20,10 @@ void SlowOnHitEvent::OnHit(
 }
 
 void StunOnHitEvent::OnHit(
-    const std::shared_ptr<Minion>&,
+    const std::shared_ptr<Minion>& minion,
     const std::shared_ptr<Enemy>& enemy,
     const HitEventData& data,
-    const std::shared_ptr<Room>&
+    const std::shared_ptr<Room>& room
 )
 {
     if (!enemy)
@@ -31,10 +33,10 @@ void StunOnHitEvent::OnHit(
 }
 
 void DamageOverTimeOnHitEvent::OnHit(
-    const std::shared_ptr<Minion>&,
+    const std::shared_ptr<Minion>& minion,
     const std::shared_ptr<Enemy>& enemy,
     const HitEventData& data,
-    const std::shared_ptr<Room>&
+    const std::shared_ptr<Room>& room
 )
 {
     if (!enemy)
@@ -42,3 +44,51 @@ void DamageOverTimeOnHitEvent::OnHit(
 
     enemy->ApplyDamageOverTime(data.value, data.duration);
 }
+
+void AOEOnHitEvent::OnHit(
+    const std::shared_ptr<Minion>& minion,
+    const std::shared_ptr<Enemy>& enemy,
+    const HitEventData& data,
+    const std::shared_ptr<Room>& room
+)
+{
+    if (!enemy)
+        return;
+
+    auto& enemyManager = room->GetEnemyManager();
+
+    auto& enemyPos = enemy->GetPosition();
+    auto range = data.value * 2.0f;
+
+    auto targets = enemyManager.FindEnemyInRange(
+        enemyPos,
+        range,
+        0
+    );
+
+    for (auto& enemy : targets)
+    {
+        enemy->TakeDamage(data.value);
+    }
+    
+}
+
+void ExcutionOnHitEvent::OnHit(
+    const std::shared_ptr<Minion>& minion,
+    const std::shared_ptr<Enemy>& enemy,
+    const HitEventData& data,
+    const std::shared_ptr<Room>& room
+)
+{
+    if (!enemy)
+        return;
+    
+    int maxHp = enemy->GetMaxHp();
+
+    // execution 의 percentage(value)를 넘으면 최대 체력만큼 데미지 
+    if (enemy->GetHp() <= maxHp * float(data.value / 100.0f))
+    {
+        enemy->TakeDamage(maxHp);
+    }
+}
+

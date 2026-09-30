@@ -50,7 +50,7 @@ void SellMinionHandler::Handle(
         response.currentGold = player->GetGold();
 
         PacketWriter writer(
-            PacketType::SpawnMinionResponse 
+            PacketType::SellMinionResponse 
         );
 
         writer.Write(response);
@@ -62,10 +62,7 @@ void SellMinionHandler::Handle(
     }
     catch (const std::exception& e)
     {
-        // 비정상적인 패킷이나 파싱 에러로 서버가 꺼지는 것을 막습니다.
         Logger::GetInstance().Info(std::string("SellMinionHandler Exception: ") + e.what());
-
-        // 필요하다면 여기서 해당 세션을 강제로 끊거나 에러 응답을 보낼 수 있습니다.
     }
     catch (...)
     {

@@ -28,6 +28,8 @@ public:
 
     void RemoveEnemy(uint32_t instanceId);
 
+    void Clear();
+
     void Update( float deltaTime );
 
     int GetAliveEnemyCount() const;

@@ -11,6 +11,7 @@
 #include "Game/TickManager.h"
 #include "Game/GameManager.h"
 #include "Network/Database.h"
+#include "Network/RedisManager.h"
 #include "Game/Stage/StageManager.h"
 #include "Game/SpawnManager.h"
 #include "Game/Pool/ObjectPoolManager.h"
@@ -37,6 +38,11 @@ public:
     AccountManager& GetAccountManager()
     {
         return m_accountManager;
+    }
+
+    RedisManager& GetRedisManager()
+    {
+        return m_redisManager;
     }
 
     RoomManager& GetRoomManager()
@@ -70,25 +76,27 @@ public:
 	}
 
 private:
+
     bool m_running;
+
     ServerConfig m_config;
     asio::io_context m_ioContext;
-
     PacketDispatcher m_dispatcher;
 
-    TcpServer m_server;
-
-    PlayerManager m_playerManager;
-    Database m_database;
-    AccountManager m_accountManager;
-
-    RoomManager m_roomManager;
-
     TickManager m_tickManager;
-    GameManager m_gameManager;
-
     StageManager m_stageManager;
+
+    ObjectPoolManager m_objectPoolManager;
     SpawnManager m_spawnManager;
 
-	ObjectPoolManager m_objectPoolManager;
+    GameManager m_gameManager;
+    RoomManager m_roomManager;
+
+    PlayerManager m_playerManager;
+
+    Database m_database;
+    RedisManager m_redisManager;
+    AccountManager m_accountManager;
+
+    TcpServer m_server;
 };

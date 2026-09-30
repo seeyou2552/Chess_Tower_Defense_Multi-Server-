@@ -30,16 +30,18 @@ RoomManager::RoomManager(
         )
     )
 {
+    Logger::GetInstance().Info("Room");
     m_tickManager.Add(
         [this](float deltaTime)
         {
             UpdateRooms(deltaTime);
         }
     );
+    Logger::GetInstance().Info("Room End");
 }
 
 std::shared_ptr<Room>
-RoomManager::CreateRoom( uint32_t stageId )
+RoomManager::CreateRoom(int stageId)
 {
     auto stageData =
         m_stageManager.GetStage(stageId);
@@ -75,7 +77,7 @@ RoomManager::CreateRoom( uint32_t stageId )
 
 std::shared_ptr<Room>
 RoomManager::GetRoom(
-    uint32_t stageId
+    int stageId
 )
 {
     std::vector<std::shared_ptr<Room>> rooms;
@@ -157,9 +159,4 @@ void RoomManager::UpdateRooms(float deltaTime)
     const auto elapsed = std::chrono::duration_cast<std::chrono::microseconds>(
         std::chrono::steady_clock::now() - updateStart
     ).count();
-
-    Logger::GetInstance().Info(
-        "Parallel Room Update: " + std::to_string(elapsed) + " us, rooms="
-        + std::to_string(rooms.size())
-    );
 }

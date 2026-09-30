@@ -4,4 +4,5 @@ enum class GameState
 {
     Intermission,
     Wave,
+    EndStage,
 };

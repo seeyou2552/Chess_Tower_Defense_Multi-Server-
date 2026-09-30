@@ -66,6 +66,10 @@ void Room::Update(float deltaTime)
 
     std::unique_lock<std::recursive_mutex> lock(m_roomMutex);
 
+    m_isUpdating = true;
+
+    m_syncTimer += deltaTime;
+
     if (m_gameState == GameState::Intermission)
     {
 
@@ -75,21 +79,34 @@ void Room::Update(float deltaTime)
     {
         m_waveManager.Update(deltaTime);
         m_enemyManager.Update(deltaTime);
-        m_minionManager.Update(deltaTime);
-
-        m_syncTimer += deltaTime;
-
-        if (m_syncTimer >= 0.05f)
+        if (m_gameState == GameState::Wave)
         {
-            m_syncTimer -= 0.05f;
-
-            lock.unlock();
-            BroadcastAttack();
-            lock.lock();
+            m_minionManager.Update(deltaTime);
         }
     }
 
-    m_projectileManager.Update(deltaTime);
+    if (m_syncTimer >= 0.05f)
+    {
+        m_syncTimer -= 0.05f;
+
+        lock.unlock();
+        BroadcastAttack();
+        BroadcastGoldUpdate();
+        lock.lock();
+    }
+
+    if (m_gameState != GameState::EndStage)
+    {
+        m_projectileManager.Update(deltaTime);
+    }
+
+    if (m_stageCleanupPending)
+    {
+        ResetStageState();
+        m_stageCleanupPending = false;
+    }
+
+    m_isUpdating = false;
 }
 
 void Room::EnqueueCommand(
@@ -279,6 +296,9 @@ std::vector<std::shared_ptr<Player>> Room::GetPlayersSnapshot() const
 
 void Room::BroadcastGoldUpdate()
 {
+    if (!m_goldChange)
+        return;
+
     std::vector<std::shared_ptr<Player>> players;
 
     {
@@ -306,6 +326,8 @@ void Room::BroadcastGoldUpdate()
             writer.GetBuffer()
         );
     }
+
+    m_goldChange = false;
 }
 
 uint64_t Room::GetTimestamp()
@@ -612,6 +634,11 @@ void Room::NotifySpawnEnemy(std::shared_ptr<Enemy> enemy)
         this->ArrivalEnemyHandle(arrivedEnemy);
         });
 
+    // Enemy Dead 콜백 등록
+    enemy->SetDeadCallback([this](std::shared_ptr<Enemy> deadedEnemy) {
+        this->DeadEnemyHandle(deadedEnemy);
+        });
+
     // Enemy 생성 알림 패킷 생성 및 브로드캐스트
     SpawnEnemyNotify notify;
     notify.instanceId = enemy->GetInstanceId();
@@ -635,7 +662,6 @@ void Room::ArrivalEnemyHandle(std::shared_ptr<Enemy> enemy)
     if (!enemy)
         return;
 
-    Logger::GetInstance().Info("Arrival Handle Start");
     m_hp -= enemy->GetDamage();
 
     // Enemy 생존 패킷 생성 및 브로드캐스트
@@ -659,14 +685,40 @@ void Room::ArrivalEnemyHandle(std::shared_ptr<Enemy> enemy)
         enemy->GetInstanceId()
     );
 
+    // 체력이 전부 소진된 경우
+    if (m_hp <= 0)
+    {
+        EndStage(false);
+    }
+
+    else
+    {
+        CheckEndWave();
+    }
+    
+}
+
+void Room::DeadEnemyHandle(std::shared_ptr<Enemy> enemy)
+{
+    if (!enemy)
+        return;
+
+    PlayerAddGold(enemy->GetReward());
+
+    // Enemy 초기화 및 반환
+    m_enemyManager.RemoveEnemy(
+        enemy->GetInstanceId()
+    );
+
     CheckEndWave();
-    Logger::GetInstance().Info("Arrival Handle End");
+    BroadcastGoldUpdate();
 }
 
 void Room::DamageToEnemy(
     std::vector<std::shared_ptr<Enemy>> targets,
     std::shared_ptr<Minion> minion,
-    int damage
+    int damage,
+    AttackType atkType
 )
 {
     for (auto& enemy : targets)
@@ -675,22 +727,14 @@ void Room::DamageToEnemy(
             continue;
 
         enemy->TakeDamage(damage);
-        minion->OnHitEvents(shared_from_this(), enemy);
+        if (atkType == AttackType::Skill)
+            minion->OnHitEvents(shared_from_this(), enemy);
 
         // Enemy가 죽었을 경우 
         if (enemy->IsDead())
         {
-            // Enemy Reward 지급
-            PlayerAddGold(enemy->GetReward());
-            minion->OnKillEvents(shared_from_this());
-
-            // Enemy 초기화 및 반환
-            m_enemyManager.RemoveEnemy(
-                enemy->GetInstanceId()
-            );
-
-            CheckEndWave();
-            BroadcastGoldUpdate();
+            if (atkType == AttackType::Skill)
+                minion->OnKillEvents(shared_from_this());
         }
     }
 }
@@ -700,7 +744,8 @@ void Room::DamageToEnemy(
     std::shared_ptr<Enemy> target,
     std::shared_ptr<Minion> minion,
     std::shared_ptr<Projectile> projectile,
-    int damage
+    int damage,
+    AttackType atkType
 )
 {
     // AttackEvent 생성 및 큐에 추가
@@ -715,24 +760,15 @@ void Room::DamageToEnemy(
     m_attackQueue.push(atkEvent);
 
     target->TakeDamage(damage);
-    minion->OnHitEvents(shared_from_this(), target);
+
+    if (atkType == AttackType::Skill)
+        minion->OnHitEvents(shared_from_this(), target);
 
     // Enemy가 죽었을 경우 
     if (target->IsDead())
     {
-        // Enemy Reward 지급
-        PlayerAddGold(target->GetReward());
-        minion->OnKillEvents(shared_from_this());
-        
-        BroadcastGoldUpdate();
-
-        // Enemy 초기화 및 반환
-        m_enemyManager.RemoveEnemy(
-            target->GetInstanceId()
-        );
-
-        CheckEndWave();
-        BroadcastGoldUpdate();
+        if (atkType == AttackType::Skill)
+            minion->OnKillEvents(shared_from_this());
     }
 }
 
@@ -741,29 +777,39 @@ void Room::CheckEndWave()
     // Spawn이 끝나고 살아있는 Enemy가 없다면 Wave 종료
     if (m_waveManager.IsSpawningFinished() && m_enemyManager.GetAliveEnemyCount() <= 0)
     {
-        // State 전환 및 Minion AC 초기화
-        m_gameState = GameState::Intermission;
-        m_minionManager.OnEndWave();
+        // 이후 웨이브가 존재하지 않는 경우
+        if (m_stageData->waves.size() <= m_waveManager.GetCurrentWave())
+        {
+            EndStage(true);
+        }
+        
+        else
+        {
+            // State 전환 및 Minion AC 초기화
+            m_gameState = GameState::Intermission;
+            m_minionManager.OnEndWave();
 
-        EndWaveNotify notify;
+            EndWaveNotify notify;
 
-        PacketWriter writer(
-            PacketType::EndWaveNotify
-        );
+            PacketWriter writer(
+                PacketType::EndWaveNotify
+            );
 
-        writer.Write(notify);
-        writer.Finish();
+            writer.Write(notify);
+            writer.Finish();
 
-        Broadcast(
-            writer.GetBuffer()
-        );
+            Broadcast(
+                writer.GetBuffer()
+            );
+        }
     }
 }
 
 std::shared_ptr<Projectile> Room::SpawnProjectile(
     std::shared_ptr<Minion>& minion,
     std::shared_ptr<Enemy>& target,
-    ProjectileHitType hitType
+    ProjectileHitType hitType,
+    AttackType atkType
 )
 {
     if (!target)
@@ -785,7 +831,7 @@ std::shared_ptr<Projectile> Room::SpawnProjectile(
         
     // Damage 콜백 설정
     projectile->SetAttackCallback(
-        [this, projectile](
+        [this, projectile, atkType](
             std::shared_ptr<Enemy>& enemy,
             std::shared_ptr<Minion>& owner,
             int damage
@@ -795,7 +841,8 @@ std::shared_ptr<Projectile> Room::SpawnProjectile(
                 enemy,
                 owner,
                 projectile,
-                damage
+                damage,
+                atkType
             );
         }
     );
@@ -861,7 +908,8 @@ void Room::DefaultAttackHandle(
                     SpawnProjectile(
                         minion,
                         enemy,
-                        minion->GetProjectileHitType()
+                        minion->GetProjectileHitType(),
+                        AttackType::Default
                     )
                 );
             }
@@ -874,7 +922,8 @@ void Room::DefaultAttackHandle(
         DamageToEnemy(
             targets,
             minion,
-            minion->GetPower()
+            minion->GetPower(),
+            AttackType::Default
         );
     };
 }
@@ -903,11 +952,11 @@ void Room::EnemyTargetSkillHandle(
 	// AttackEvent 생성 및 큐에 추가
     AttackEvent atkEvent;
 
-    atkEvent.attackType = AttackType::Default;
+    atkEvent.attackType = AttackType::Skill;
     atkEvent.isProjectile = false;
     atkEvent.minionInstanceId = minionInstanceId;
     atkEvent.targets = targetIds;
-    atkEvent.damage = minion->GetPower();
+    atkEvent.damage = minion->GetPower() + minion->GetSkillData()->skillDamage;
 
     m_attackQueue.push(atkEvent);
 
@@ -930,6 +979,26 @@ void Room::MinionTargetSkillHandle(
         return;
 
     auto minion = m_minionManager.FindMinion(minionInstanceId);
+
+    std::vector<uint32_t> targetIds;
+    for (auto target : targets)
+    {
+        if (!target)
+        {
+            continue;
+        }
+        targetIds.push_back(target->GetInstanceId());
+    }
+
+    AttackEvent atkEvent;
+
+    atkEvent.attackType = AttackType::Buff;
+    atkEvent.isProjectile = false;
+    atkEvent.minionInstanceId = minionInstanceId;
+    atkEvent.targets = targetIds;
+    atkEvent.damage = 0;
+
+    m_attackQueue.push(atkEvent);
 
     minion->GetMinionTargetSkillStrategy()->Execute(
         minion,
@@ -957,6 +1026,8 @@ void Room::PlayerAddGold(int amount)
     {
         player->AddGold(amount);
     }
+
+    m_goldChange = true;
 }
 
 void Room::BroadcastAttack()
@@ -997,4 +1068,59 @@ void Room::BroadcastAttack()
     }
 
     Broadcast(packet);
+}
+
+void Room::EndStage(bool success)
+{
+    std::lock_guard<std::recursive_mutex> lock(m_roomMutex);
+
+    if (m_gameState == GameState::EndStage)
+    {
+        return;
+    }
+
+    m_gameState = GameState::EndStage;
+
+    StageEndNotify notify;
+    notify.success = success ? 1 : 0;
+
+    PacketWriter writer(PacketType::EndStageNotify);
+    
+    writer.Write(notify);
+
+    writer.Finish();
+    Broadcast(writer.GetBuffer());
+
+    if (m_isUpdating)
+    {
+        m_stageCleanupPending = true;
+    }
+    else
+    {
+        ResetStageState();
+    }
+}
+
+void Room::ResetStageState()
+{
+    m_projectileManager.Clear();
+    m_enemyManager.Clear();
+    m_minionManager.Clear();
+    m_waveManager.Reset();
+
+    m_occupiedTiles.clear();
+    for (auto& [id, ready] : m_playerReady)
+    {
+        ready = false;
+    }
+
+    m_hp = 100;
+    m_gameState = GameState::Intermission;
+    m_syncTimer = 0.0f;
+    m_goldChange = false;
+
+    while (!m_attackQueue.empty())
+    {
+        m_attackQueue.pop();
+    }
 }

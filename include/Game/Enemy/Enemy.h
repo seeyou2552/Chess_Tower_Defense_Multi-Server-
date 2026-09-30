@@ -55,6 +55,11 @@ public:
         return m_dataId;
     }
 
+    int GetMaxHp() const
+    {
+        return m_maxHp;
+    }
+
     int GetHp() const
     {
         return m_hp;
@@ -82,6 +87,11 @@ public:
     void SetArrivalCallback(ArrivalCallback callback)
     { 
         m_onArrival = callback; 
+    }
+
+    void SetDeadCallback(DeadCallback callback)
+    {
+        m_onDead = callback;
     }
 
     int GetDamage() const
@@ -137,6 +147,7 @@ private:
     int m_pathIndex = 0;
     int m_currentWaypointIndex = 0;
 
+    int m_maxHp = 0;
     int m_hp = 0;
     int m_power = 0;
     float m_moveSpeed = 0;

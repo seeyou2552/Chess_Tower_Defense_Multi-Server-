@@ -50,7 +50,8 @@ enum class TargetType : uint8_t
 enum class AttackType : uint8_t
 {
 	Default = 0,
-	Skill = 1
+	Skill = 1,
+    Buff = 2
 };
 
 struct AttackEvent

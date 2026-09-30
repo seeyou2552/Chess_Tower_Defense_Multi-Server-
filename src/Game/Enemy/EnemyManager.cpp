@@ -45,6 +45,32 @@ void EnemyManager::RemoveEnemy(uint32_t instanceId)
     m_removeQueue.push_back(instanceId);
 }
 
+void EnemyManager::Clear()
+{
+    std::vector<std::shared_ptr<Enemy>> enemies;
+
+    {
+        std::lock_guard<std::mutex> lock(m_enemyMutex);
+        enemies.reserve(m_enemies.size());
+
+        for (auto& [id, enemy] : m_enemies)
+        {
+            if (enemy)
+            {
+                enemies.push_back(std::move(enemy));
+            }
+        }
+
+        m_enemies.clear();
+        m_removeQueue.clear();
+    }
+
+    for (const auto& enemy : enemies)
+    {
+        m_spawnManager.ReleaseEnemy(enemy);
+    }
+}
+
 void EnemyManager::Update(float deltaTime)
 {
     // Update 중에는 락 범위를 잡거나, 복사해서 처리하는 것이 안전합니다.

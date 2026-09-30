@@ -23,6 +23,7 @@ void Enemy::Init(
     m_instanceId = instanceId;
     m_dataId = data.id;
 
+    m_maxHp = data.maxHp;
     m_hp = data.maxHp;
     m_power = data.attack;
     m_moveSpeed = data.moveSpeed;
@@ -195,6 +196,7 @@ void Enemy::UpdateDebuffs(float deltaTime)
 
         while (it->elapsedTime >= it->tickInterval && !m_isDead)
         {
+            Logger::GetInstance().Info("Damage Debuff~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             TakeDamage(static_cast<int>(it->damagePerTick));
             it->elapsedTime -= it->tickInterval;
         }
@@ -233,7 +235,8 @@ void Enemy::TakeDamage(int damage)
     m_hp -= damage;
     if (m_hp <= 0)
     {
-        
+        auto selfEnemy = std::static_pointer_cast<Enemy>(shared_from_this());
+        m_onDead(selfEnemy);
         m_isDead = true;
     }
 }

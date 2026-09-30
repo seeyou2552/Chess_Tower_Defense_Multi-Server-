@@ -11,3 +11,8 @@ struct StageStartResponse
     int orderId;
     ErrorCode errCode;
 };
+
+struct StageEndNotify
+{
+    uint32_t success;
+};

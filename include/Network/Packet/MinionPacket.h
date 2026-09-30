@@ -18,7 +18,7 @@ struct SpawnMinionRequest
 
 struct SpawnMinionResponse
 {
-	uint32_t currentGold;
+	int currentGold;
     ErrorCode errCode;
 };
 

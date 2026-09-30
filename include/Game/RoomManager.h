@@ -25,11 +25,11 @@ public:
     );
 
     std::shared_ptr<Room> CreateRoom(
-		uint32_t stageId
+		int stageId
     );
 
     std::shared_ptr<Room> GetRoom(
-        uint32_t stageId
+        int stageId
     );
 
     void RemoveRoom(

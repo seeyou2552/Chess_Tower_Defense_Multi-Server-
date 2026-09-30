@@ -6,7 +6,7 @@
 
 struct JoinRoomRequest
 {
-    uint32_t stageId;
+    int stageId;
 };
 
 struct JoinRoomResponse

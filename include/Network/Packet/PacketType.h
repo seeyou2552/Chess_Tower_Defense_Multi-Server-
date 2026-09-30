@@ -16,7 +16,7 @@ enum class PacketType : uint16_t
 
     StageStartResponse = 7,
 
-    LoadSceneResponse = 8,
+    LoadSceneRequest = 8,
     LoadedScene = 9,
 
     // Minion
@@ -39,6 +39,7 @@ enum class PacketType : uint16_t
     UpdateMinionNotify = 33,
 
     AttackNotify = 35,
+    UseBuffSkillNotify = 37,
 
     // Player
     UseGoldRequest = 16,
@@ -55,6 +56,9 @@ enum class PacketType : uint16_t
     ArrivalEnemyNotify = 21,
     DamageToEnemyNotify = 22,
     DeadEnemyNotify = 34,
+
+    //Stage
+    EndStageNotify = 36,
     
     PingRequest,
     PingResponse

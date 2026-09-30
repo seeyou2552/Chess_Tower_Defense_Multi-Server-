@@ -128,17 +128,21 @@ public:
 
     void ArrivalEnemyHandle(std::shared_ptr<Enemy> enemy);
 
+    void DeadEnemyHandle(std::shared_ptr<Enemy> enemy);
+
     void DamageToEnemy(
         std::vector<std::shared_ptr<Enemy>> targets,
         std::shared_ptr<Minion> minion,
-        int damage
+        int damage,
+        AttackType atkType
     );
 
     void DamageToEnemy(
         std::shared_ptr<Enemy> target,
         std::shared_ptr<Minion> minion,
 		std::shared_ptr<Projectile> projectile,
-        int damage
+        int damage,
+        AttackType atkType
     );
 
     void DefaultAttackHandle(
@@ -161,14 +165,19 @@ public:
     std::shared_ptr<Projectile> SpawnProjectile(
         std::shared_ptr<Minion>& minion,
         std::shared_ptr<Enemy>& target,
-        ProjectileHitType hitType
+        ProjectileHitType hitType,
+        AttackType atkType
     );
 
     void PlayerAddGold(int amount);
 
     void BroadcastAttack();
 
+    void EndStage(bool success);
+
 private:
+
+    void ResetStageState();
 
     std::mutex m_commandMutex;
     std::queue<std::function<void()>> m_commandQueue;
@@ -206,7 +215,12 @@ private:
 
     float m_syncTimer = 0.0f;
 
+    bool m_isUpdating = false;
+    bool m_stageCleanupPending = false;
+
     std::queue<AttackEvent> m_attackQueue;
+
+    bool m_goldChange = false;
 
 
 };

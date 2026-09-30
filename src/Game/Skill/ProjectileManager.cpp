@@ -66,6 +66,27 @@ void ProjectileManager::RemoveProjectile(uint32_t id)
     Logger::GetInstance().Info("Projectile Return");
 }
 
+void ProjectileManager::Clear()
+{
+    std::vector<std::shared_ptr<Projectile>> projectiles;
+    projectiles.reserve(m_projectiles.size());
+
+    for (auto& [id, projectile] : m_projectiles)
+    {
+        if (projectile)
+        {
+            projectiles.push_back(std::move(projectile));
+        }
+    }
+
+    m_projectiles.clear();
+
+    for (const auto& projectile : projectiles)
+    {
+        m_spawnManager.ReleaseProjectile(projectile);
+    }
+}
+
 void ProjectileManager::Update(float deltaTime)
 {
     // 순회 중 투사체가 삭제되더라도 꼬이지 않도록 ID 목록을 먼저 복사합니다.

@@ -56,8 +56,10 @@ std::shared_ptr<IKillEvent> SkillFactory::KillEventCreate(int id)
 {
     switch (id)
     {
-    case 1:
+    case 3001:
         return std::make_shared<GoldOnKillEvent>();
+    case 3002:
+        return std::make_shared<PowerUpOnKillEvent>();
     default:
         return nullptr;
     }
@@ -67,12 +69,16 @@ std::shared_ptr<IHitEvent> SkillFactory::HitEventCreate(int id)
 {
     switch (id)
     {
-        case 0:
+        case 2004:
             return std::make_shared<SlowOnHitEvent>();
-        case 1:
+        case 2005:
             return std::make_shared<StunOnHitEvent>();
-        case 2:
+        case 2001:
             return std::make_shared<DamageOverTimeOnHitEvent>();
+        case 2002:
+            return std::make_shared<ExcutionOnHitEvent>();
+        case 2003:
+            return std::make_shared<AOEOnHitEvent>();
         default:
             return nullptr;
     }

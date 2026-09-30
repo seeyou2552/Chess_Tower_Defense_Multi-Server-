@@ -35,6 +35,8 @@ public:
 
     void RemoveProjectile(uint32_t id);
 
+    void Clear();
+
     void Update(float deltaTime);
 
 private:

@@ -14,11 +14,11 @@ public:
     bool Load(const std::string& file);
 
     std::shared_ptr<StageData> GetStage(
-        uint32_t stageId
+        int stageId
     );
 
 	std::shared_ptr<StageTileData> GetStageTile(
-		uint32_t stageId
+		int stageId
 	);
 
     bool LoadAllStageTiles();
@@ -30,7 +30,7 @@ public:
 private:
 
     std::unordered_map<
-        uint32_t,
+        int,
         std::shared_ptr<StageData>
     > m_stages;
 

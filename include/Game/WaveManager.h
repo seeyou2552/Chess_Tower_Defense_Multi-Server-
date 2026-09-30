@@ -24,6 +24,8 @@ public:
 
     void StartWave();
 
+    void Reset();
+
     bool IsWaveFinished() const
     {
         return m_waveFinished;

@@ -5,6 +5,7 @@
 
 #include "Network/Database.h"
 #include "Network/ErrorCode.h"
+#include "Network/RedisManager.h"
 
 class Account;
 
@@ -12,7 +13,8 @@ class AccountManager
 {
 public:
     explicit AccountManager(
-        Database& database
+        Database& database,
+        RedisManager& redisManager
     );
 
     bool Register(
@@ -29,4 +31,5 @@ public:
 
 private:
     Database& m_database;
+    RedisManager& m_redisManager;
 };

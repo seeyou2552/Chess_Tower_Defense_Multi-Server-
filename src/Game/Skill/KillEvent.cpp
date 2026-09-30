@@ -11,7 +11,7 @@ void GoldOnKillEvent::OnKill(const std::shared_ptr<Minion>& minion, const KillEv
 }
 
 
-void PowerUpKillEvent::OnKill(const std::shared_ptr<Minion>&, const KillEventData& data, const std::shared_ptr<Room>& room)
+void PowerUpOnKillEvent::OnKill(const std::shared_ptr<Minion>&, const KillEventData& data, const std::shared_ptr<Room>& room)
 {
 
 }

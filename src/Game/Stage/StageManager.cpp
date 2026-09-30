@@ -92,7 +92,7 @@ bool StageManager::Load(
 
 std::shared_ptr<StageData>
 StageManager::GetStage(
-    uint32_t stageId
+    int stageId
 )
 {
     auto iter =
@@ -106,7 +106,7 @@ StageManager::GetStage(
 
 std::shared_ptr<StageTileData>
 StageManager::GetStageTile(
-    uint32_t stageId
+    int stageId
 )
 {
     auto iter =

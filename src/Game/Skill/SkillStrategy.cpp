@@ -43,7 +43,8 @@ void ImpactSkillStrategy::Execute(
     room->DamageToEnemy(
         targets,
         minion,
-        damage
+        damage,
+        AttackType::Skill
     );
 }
 
@@ -62,7 +63,8 @@ void ProjectileSkillStrategy::Execute(
         room->SpawnProjectile(
             minion,
             enemy,
-            data.projectileHitType
+            data.projectileHitType,
+            AttackType::Skill
         );
     }
 }
@@ -80,7 +82,8 @@ void AOESkillStrategy::Execute(
     room->DamageToEnemy(
         targets,
         minion,
-        damage
+        damage,
+        AttackType::Skill
     );
 }
 

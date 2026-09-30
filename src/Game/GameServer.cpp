@@ -5,9 +5,11 @@
 #include <iostream>
 #include <thread>
 #include <fstream>
+#include <cstdlib>
 #include <nlohmann/json.hpp>
 
 #include "Network/Database.h"
+#include "Network/RedisManager.h"
 #include "Game/Handler/LoginHandler.h"
 #include "Game/Handler/PingHandler.h"
 #include "Game/Handler/JoinRoomHandler.h"
@@ -40,7 +42,8 @@ GameServer::GameServer()
         m_tickManager
     ),
     m_accountManager(
-        m_database
+        m_database,
+        m_redisManager
     ),
     m_objectPoolManager(),
     m_spawnManager(
@@ -52,6 +55,7 @@ GameServer::GameServer()
         m_spawnManager
     )
 {
+    Logger::GetInstance().Info("Login");
     auto loginHandler =
         std::make_shared<LoginHandler>();
 
@@ -141,7 +145,7 @@ GameServer::GameServer()
         std::make_shared<LoadSceneHandler>();
 
     m_dispatcher.Register(
-        PacketType::LoadSceneResponse,
+        PacketType::LoadSceneRequest,
 
         [loadSceneHandler]
         (
@@ -242,6 +246,8 @@ GameServer::GameServer()
         }
     );
 
+    Logger::GetInstance().Info("Upgrade");
+
     auto upgradeMinionHandler =
         std::make_shared<UpgradeMinionHandler>();
 
@@ -271,6 +277,7 @@ bool GameServer::Start()
     m_running = true;
 
     DBConfig dbConfig;
+    RedisConfig redisConfig;
 
     try {
         // 1. config.json 파일 열기
@@ -291,6 +298,18 @@ bool GameServer::Start()
         dbConfig.password = j["database"]["password"];
         dbConfig.database = j["database"]["dbname"];
 
+        if (j.contains("redis"))
+        {
+            const auto& redisJson = j["redis"];
+            redisConfig.host = redisJson.value("host", redisConfig.host);
+            redisConfig.port = redisJson.value("port", redisConfig.port);
+        }
+
+        if (const char* redisPassword = std::getenv("CTD_REDIS_PASSWORD"))
+        {
+            redisConfig.password = redisPassword;
+        }
+
     }
     catch (const std::exception& e) {
         Logger::GetInstance().Info("Error parsing config.json");
@@ -303,6 +322,8 @@ bool GameServer::Start()
         Logger::GetInstance().Info("Server failed to start due to database connection error.");
         return -1;
     }
+
+    m_redisManager.Connect(redisConfig);
 
 	// Stage 데이터 로드
     if (!m_stageManager.Load("StageData.json"))

@@ -62,10 +62,16 @@ void Minion::Init(
     // Hit Event
     for (auto& hitEvent : m_skillData->hitEvents)
     {
+        Logger::GetInstance().Info("HitEvent ADDDDDDDDDDDDDDDDDDDDDDDD");
+        Logger::GetInstance().Info(std::to_string(data.id));
+        Logger::GetInstance().Info(std::to_string(hitEvent.id));
+        Logger::GetInstance().Info(std::to_string(hitEvent.duration));
+
         auto event = SkillFactory::HitEventCreate(hitEvent.id);
 
         if (event)
         {
+            Logger::GetInstance().Info("HitEvent In!!!!!!!!!!!!!!");
             m_hitEvents.push_back(event);
         }
     }
@@ -121,7 +127,6 @@ const int& Minion::GetMaxTargets() const
                 return 1;
 
             case SearchScope::MultipleTarget:
-                Logger::GetInstance().Info("MaxTarget = " + std::to_string(m_stat.GetCurrent().skillMaxTargets));
 				return m_stat.GetCurrent().skillMaxTargets;
 
             case SearchScope::Area:
@@ -215,12 +220,22 @@ void Minion::OnKillEvents(const std::shared_ptr<Room>& room)
 void Minion::OnHitEvents(const std::shared_ptr<Room>& room, const std::shared_ptr<Enemy>& enemy)
 {
     if (!room || !enemy || !m_skillData)
+    {
+        Logger::GetInstance().Info("On Hit Is NULL");
         return;
+    }
+        
+
+    Logger::GetInstance().Info("On Hit STARTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT");
+    Logger::GetInstance().Info(std::to_string(m_hitEvents.size()));
 
     for (int i = 0; i < m_hitEvents.size(); ++i)
     {
         if (i >= static_cast<int>(m_skillData->hitEvents.size()))
+        {
+            Logger::GetInstance().Info("Break????????????");
             break;
+        }
 
         m_hitEvents[i]->OnHit(
             shared_from_this(),

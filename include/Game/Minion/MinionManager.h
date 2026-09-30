@@ -31,6 +31,8 @@ public:
 
     void RemoveMinion(uint32_t instanceId);
 
+    void Clear();
+
     void Update(float deltaTime);
 
     std::shared_ptr<Minion> FindMinion(uint32_t instanceId)

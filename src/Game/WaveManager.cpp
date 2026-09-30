@@ -97,6 +97,18 @@ void WaveManager::StartWave()
     m_waveFinished = false;
 }
 
+void WaveManager::Reset()
+{
+    m_currentWave = 0;
+    m_enemyListIndex = 0;
+    m_remainingSpawnCount = 0;
+    m_spawnElapsedTime = 0.0f;
+    m_aliveEnemyCount = 0;
+    m_waveStarted = false;
+    m_spawnFinished = true;
+    m_waveFinished = false;
+}
+
 void WaveManager::SpawnNextEnemy()
 {
 

@@ -52,3 +52,23 @@ public:
         const std::shared_ptr<Room>& room
     ) override;
 };
+
+class AOEOnHitEvent : public IHitEvent {
+public:
+    void OnHit(
+        const std::shared_ptr<Minion>& minion,
+        const std::shared_ptr<Enemy>& enemy,
+        const HitEventData& data,
+        const std::shared_ptr<Room>& room
+    ) override;
+};
+
+class ExcutionOnHitEvent : public IHitEvent {
+public:
+    void OnHit(
+        const std::shared_ptr<Minion>& minion,
+        const std::shared_ptr<Enemy>& enemy,
+        const HitEventData& data,
+        const std::shared_ptr<Room>& room
+    ) override;
+};

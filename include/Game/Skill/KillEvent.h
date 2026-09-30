@@ -23,7 +23,7 @@ public:
     void OnKill(const std::shared_ptr<Minion>& minion, const KillEventData& data, const std::shared_ptr<Room>& room) override;
 };
 
-class PowerUpKillEvent : public IKillEvent {
+class PowerUpOnKillEvent : public IKillEvent {
 public:
     void OnKill(const std::shared_ptr<Minion>& minion, const KillEventData& data, const std::shared_ptr<Room>& room) override;
 };

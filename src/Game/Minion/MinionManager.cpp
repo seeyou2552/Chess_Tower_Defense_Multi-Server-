@@ -73,6 +73,31 @@ void MinionManager::RemoveMinion(uint32_t instanceId)
     m_spawnManager.ReleaseMinion(minion);
 }
 
+void MinionManager::Clear()
+{
+    std::vector<std::shared_ptr<Minion>> minions;
+
+    {
+        std::lock_guard<std::mutex> lock(m_minionMutex);
+        minions.reserve(m_minions.size());
+
+        for (auto& [id, minion] : m_minions)
+        {
+            if (minion)
+            {
+                minions.push_back(std::move(minion));
+            }
+        }
+
+        m_minions.clear();
+    }
+
+    for (const auto& minion : minions)
+    {
+        m_spawnManager.ReleaseMinion(minion);
+    }
+}
+
 void MinionManager::Update(
     float deltaTime
 )

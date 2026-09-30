@@ -13,6 +13,17 @@
 
 #include "Core/Logger.h"
 
+#include <algorithm>
+
+namespace
+{
+    std::string ReadFixedString(const char* value, size_t capacity)
+    {
+        const auto end = std::find(value, value + capacity, '\0');
+        return std::string(value, end);
+    }
+}
+
 void LoginHandler::Handle(
     std::shared_ptr<Session> session,
     const char* packet,
@@ -35,8 +46,8 @@ void LoginHandler::Handle(
     auto account =
         server.GetAccountManager()
         .Login(
-            request.id,
-            request.password,
+            ReadFixedString(request.id, sizeof(request.id)),
+            ReadFixedString(request.password, sizeof(request.password)),
             response.errCode
         );
 
