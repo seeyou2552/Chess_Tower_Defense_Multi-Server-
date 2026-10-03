@@ -424,12 +424,15 @@ graph TD
     Dispatcher[PacketDispatcher]
     Account[AccountManager]
     DB[(MySQL)]
+    Redis[(Redis)]
 
     Client --> Login
     Login --> Dispatcher
     Dispatcher --> Account
     Account --> DB
     DB --> Account
+    Account --> Redis
+    Redis --> Account
     Account --> Client
 ```
 
@@ -470,6 +473,10 @@ AccountManager
       ├── Account Validation
       ├── Duplicate Login Check
       └── Access Token
+             │
+             ├── MySQL
+             │
+             └── Redis
              │
              ▼
        LoginResponse
