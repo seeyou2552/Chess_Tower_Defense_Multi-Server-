@@ -142,6 +142,7 @@ Player 1
 ### Database
 
 * **MySQL**
+* **Redis**
 
 ### Build
 
@@ -178,38 +179,30 @@ Player 1
 CTD_Server/
 ├── CMakeLists.txt
 │
-├── External/
-│   └── asio/
-│
 ├── Include/
 │   ├── Core/
 │   │   ├── Logger.h
-│   │   └── ...
-│   │
+│   │   └── ThreadPool.h
+│   
 │   ├── Network/
 │   │   ├── TcpServer.h
 │   │   ├── Session.h
 │   │   ├── PacketDispatcher.h
 │   │   ├── PacketReader.h
 │   │   └── PacketWriter.h
-│   │
+│   │   └── Database.h
+│   
 │   ├── Game/
 │   │   ├── GameServer.h
-│   │   ├── Room.h
-│   │   ├── Player.h
-│   │   ├── Enemy.h
-│   │   ├── Minion.h
-│   │   ├── Wave.h
-│   │   └── Projectile.h
-│   │
-│   └── Database/
-│       └── Database.h
-│
+│   │   ├── Room
+│   │   ├── Player
+│   │   ├── Enemy
+│   │   └── Minion
+│       
 ├── Source/
 │   ├── Core/
 │   ├── Network/
 │   ├── Game/
-│   ├── Database/
 │   └── main.cpp
 │
 ```
@@ -572,31 +565,6 @@ Player 2 ── Ready
 
 게임 서버는 게임 객체의 종류와 책임에 따라 여러 Manager로 분리했습니다.
 
-### 📐 구조도
-
-```mermaid
-graph TD
-    GameServer[GameServer]
-
-    PlayerManager[PlayerManager]
-    RoomManager[RoomManager]
-    StageManager[StageManager]
-    SpawnManager[SpawnManager]
-    EnemyManager[EnemyManager]
-    MinionManager[MinionManager]
-    PoolManager[ObjectPoolManager]
-    TickManager[TickManager]
-
-    GameServer --> PlayerManager
-    GameServer --> RoomManager
-    GameServer --> StageManager
-    GameServer --> SpawnManager
-    GameServer --> EnemyManager
-    GameServer --> MinionManager
-    GameServer --> PoolManager
-    GameServer --> TickManager
-```
-
 ### 주요 Manager 역할
 
 #### `PlayerManager`
@@ -817,19 +785,7 @@ Client 1  Client 2
 
 서버가 Enemy의 HP 및 Death State를 결정하고 클라이언트는 서버의 결과를 반영하도록 구조를 변경했습니다.
 
-### 🌟 적용 효과
-
-* Client / Server 간 Enemy HP 불일치 감소
-* Death State의 기준 통일
-* Multiplayer 환경에서 게임 상태의 기준점 확보
-* 전투 결과 동기화 구조 단순화
-
-</details>
-
-<details>
-<summary><b>📢 Attack Queue & Batch Processing</b></summary>
-
-## 📢 Attack Queue & Batch Processing
+### Attack Queue & Batch Processing
 
 Tower Defense에서는 짧은 시간에 여러 Minion이 동시에 공격할 수 있습니다.
 
@@ -888,6 +844,13 @@ AttackNotify
 ```
 
 공격 이벤트를 하나의 Packet으로 묶어 전송함으로써 다수의 공격이 동시에 발생하는 상황에서도 네트워크 전송 구조를 단순화했습니다.
+
+### 🌟 적용 효과
+
+* Client / Server 간 Enemy HP 불일치 감소
+* Death State의 기준 통일
+* Multiplayer 환경에서 게임 상태의 기준점 확보
+* 전투 결과 동기화 구조 단순화
 
 </details>
 
