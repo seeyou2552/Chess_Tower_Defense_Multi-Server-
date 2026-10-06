@@ -61,9 +61,11 @@ Unity 클라이언트에서 동작하던 Chess Tower Defense를 네트워크 환
 
 ### 🎮 기본 조작법
 * **로그인 및 등록**: Id와 Password를 입력한 후 Login 또는 Register 버튼을 누릅니다. Login은 중복 로그인이 허용되어 있습니다.
+  
 Test Id
-Id : test
-Pwd : 1234 
+
+*Id : test
+*Pwd : 1234 
   ![Login](READMEImg/Login.png)
   
 * **스테이지 시작**: 오른쪽 Play 버튼을 누르면 왼쪽 체스판에 Stage를 선택할 수 있는 UI가 생성됩니다. Level아래에 있는 Play 버튼을 누르면 매칭을 시작합니다. 다른 플레이어와 매칭 되면 해당 스테이지가 시작됩니다.
