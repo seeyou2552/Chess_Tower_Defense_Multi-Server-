@@ -51,11 +51,11 @@ Unity 클라이언트에서 동작하던 Chess Tower Defense를 네트워크 환
 | Platform | Android |
 | Build | APK |
 | Installation | APK 직접 설치 |
-| Download | [최신 Release](https://github.com/seeyou2552/Chess_Tower_Defense/releases/latest) |
+| Download | [최신 Release](https://github.com/seeyou2552/Chess_Tower_Defense_Multi-Server-/releases/latest) |
 
 ### 설치 방법
 
-1. [**최신 Release 페이지**](https://github.com/seeyou2552/Chess_Tower_Defense/releases/latest)에 접속합니다.
+1. [**최신 Release 페이지**](https://github.com/seeyou2552/Chess_Tower_Defense_Multi-Server-/releases/latest)에 접속합니다.
 2. `ctd_multi.apk`를 다운로드합니다.
 3. Android 기기에서 APK 파일을 실행합니다.
 4. 설치 권한을 허용한 후 앱을 설치합니다.
