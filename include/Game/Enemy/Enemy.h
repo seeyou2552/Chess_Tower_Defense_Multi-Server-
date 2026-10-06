@@ -3,6 +3,7 @@
 #include <cstdint>
 #include <vector>
 #include <functional>
+#include <mutex>
 #include <memory>
 #include <algorithm>
 
@@ -45,23 +46,27 @@ public:
 
     void Update(float deltaTime);
 
-    const uint32_t& GetInstanceId() const
+    uint32_t GetInstanceId() const
     {
+        std::lock_guard<std::recursive_mutex> lock(m_mutex);
         return m_instanceId;
     }
 
     uint32_t GetId() const
     {
+        std::lock_guard<std::recursive_mutex> lock(m_mutex);
         return m_dataId;
     }
 
     int GetMaxHp() const
     {
+        std::lock_guard<std::recursive_mutex> lock(m_mutex);
         return m_maxHp;
     }
 
     int GetHp() const
     {
+        std::lock_guard<std::recursive_mutex> lock(m_mutex);
         return m_hp;
     }
 
@@ -72,11 +77,13 @@ public:
 
     int GetPathIndex() const
     {
+        std::lock_guard<std::recursive_mutex> lock(m_mutex);
         return m_pathIndex;
     }
 
-    const Vector3& GetPosition() const
+    Vector3 GetPosition() const
     {
+        std::lock_guard<std::recursive_mutex> lock(m_mutex);
         return m_position;
     }
 
@@ -86,33 +93,39 @@ public:
 
     void SetArrivalCallback(ArrivalCallback callback)
     { 
+        std::lock_guard<std::recursive_mutex> lock(m_mutex);
         m_onArrival = callback; 
     }
 
     void SetDeadCallback(DeadCallback callback)
     {
+        std::lock_guard<std::recursive_mutex> lock(m_mutex);
         m_onDead = callback;
     }
 
     int GetDamage() const
     {
+        std::lock_guard<std::recursive_mutex> lock(m_mutex);
         return m_power;
     }
 
     int GetReward() const
     {
+        std::lock_guard<std::recursive_mutex> lock(m_mutex);
         return m_reward;
     }
 
-    bool IsActive()
+    bool IsActive() const
     {
+        std::lock_guard<std::recursive_mutex> lock(m_mutex);
         return m_active;
     }
 
     void TakeDamage(int damage);
 
-    bool IsDead()
+    bool IsDead() const
     {
+        std::lock_guard<std::recursive_mutex> lock(m_mutex);
         return m_isDead;
     }
 
@@ -122,24 +135,43 @@ public:
 
     bool IsStunned() const
     {
+        std::lock_guard<std::recursive_mutex> lock(m_mutex);
         return m_isStunned;
     }
 
     float GetSlowPercent() const
     {
+        std::lock_guard<std::recursive_mutex> lock(m_mutex);
         return m_slowPercent;
     }
 
     float GetMovementSpeedMultiplier() const
     {
+        std::lock_guard<std::recursive_mutex> lock(m_mutex);
         return std::max(0.0f, 1.0f - (m_slowPercent / 100.0f));
     }
 
 private:
-    void UpdateDebuffs(float deltaTime);
+    void UpdateDebuffs(
+        float deltaTime,
+        DeadCallback& deadCallback,
+        std::shared_ptr<Enemy>& selfEnemy
+    );
+    void UpdateMovementLocked(
+        float deltaTime,
+        ArrivalCallback& arrivalCallback,
+        std::shared_ptr<Enemy>& selfEnemy
+    );
+    void TakeDamageLocked(
+        int damage,
+        DeadCallback& deadCallback,
+        std::shared_ptr<Enemy>& selfEnemy
+    );
     void RecalculateSlowPercent();
 
 private:
+
+    mutable std::recursive_mutex m_mutex;
 
     uint32_t m_instanceId = 0;
     uint32_t m_dataId = 0;

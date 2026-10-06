@@ -101,7 +101,7 @@ public:
         return m_stat.GetCurrent().maxAC;
     }
 
-    const int& GetMaxTargets() const;
+    int GetMaxTargets() const;
 
     const MinionBaseStat& GetBaseStat() const
     {

@@ -117,7 +117,7 @@ void Minion::Update(float deltaTime)
     }
 }
 
-const int& Minion::GetMaxTargets() const
+int Minion::GetMaxTargets() const
 {
     if (m_stat.GetCurrent().currentAC >= m_stat.GetCurrent().maxAC)
     {

@@ -188,6 +188,7 @@ private:
     std::mutex m_commandMutex;
     std::queue<std::function<void()>> m_commandQueue;
 
+    std::mutex m_updateMutex;
     mutable std::recursive_mutex m_roomMutex;
 
 
@@ -207,10 +208,9 @@ private:
 
     std::unordered_map<uint32_t, bool> m_playerReady;
 
-    WaveManager m_waveManager;
-
     EnemyManager m_enemyManager;
     MinionManager m_minionManager;
+    WaveManager m_waveManager;
     ProjectileManager m_projectileManager;
 
     // 타일에 이미 다른 미니언이 스폰되어 있는지 관리하는 점유 상태 맵

@@ -5,6 +5,7 @@
 
 #include <algorithm>
 #include <mutex>
+#include <utility>
 
 #include "Core/Logger.h"
 
@@ -20,8 +21,15 @@ EnemyManager::EnemyManager
 
 std::shared_ptr<Enemy> EnemyManager::SpawnEnemy(uint32_t enemyId, int x, int y)
 {
+    uint32_t instanceId;
+
+    {
+        std::lock_guard<std::mutex> lock(m_enemyMutex);
+        instanceId = m_nextInstanceId++;
+    }
+
     std::shared_ptr<Enemy> enemy = m_spawnManager.SpawnEnemy(
-        m_nextInstanceId,
+        instanceId,
         enemyId,
         x,
         y
@@ -32,8 +40,7 @@ std::shared_ptr<Enemy> EnemyManager::SpawnEnemy(uint32_t enemyId, int x, int y)
 
     {
         std::lock_guard<std::mutex> lock(m_enemyMutex);
-        m_enemies.emplace(m_nextInstanceId, enemy);
-        m_nextInstanceId++;
+        m_enemies.emplace(instanceId, enemy);
     }
 
     return enemy;
@@ -51,14 +58,13 @@ void EnemyManager::Clear()
 
     {
         std::lock_guard<std::mutex> lock(m_enemyMutex);
+
         enemies.reserve(m_enemies.size());
 
         for (auto& [id, enemy] : m_enemies)
         {
             if (enemy)
-            {
                 enemies.push_back(std::move(enemy));
-            }
         }
 
         m_enemies.clear();
@@ -73,96 +79,152 @@ void EnemyManager::Clear()
 
 void EnemyManager::Update(float deltaTime)
 {
-    // Update 중에는 락 범위를 잡거나, 복사해서 처리하는 것이 안전합니다.
+    // 1. 현재 Enemy 목록을 snapshot으로 복사
+    std::vector<std::shared_ptr<Enemy>> enemies;
 
-    for (auto& [id, enemy] : m_enemies)
     {
-        if (enemy)
+        std::lock_guard<std::mutex> lock(m_enemyMutex);
+
+        enemies.reserve(m_enemies.size());
+
+        for (const auto& [id, enemy] : m_enemies)
         {
-            enemy->Update(deltaTime);
+            if (enemy)
+                enemies.push_back(enemy);
         }
     }
 
-    for (uint32_t id : m_removeQueue)
+    // 2. 실제 Enemy Update는 lock 없이 수행
+    for (const auto& enemy : enemies)
     {
-        auto iter = m_enemies.find(id);
-        if (iter == m_enemies.end())
-            continue;
-
-        auto enemy = iter->second;
-        m_enemies.erase(iter);
-
-        m_spawnManager.ReleaseEnemy(enemy);
+        if (enemy)
+            enemy->Update(deltaTime);
     }
 
-    m_removeQueue.clear();
+    // 3. 제거 대상 snapshot
+    std::vector<std::shared_ptr<Enemy>> removeEnemies;
+
+    {
+        std::lock_guard<std::mutex> lock(m_enemyMutex);
+
+        for (uint32_t id : m_removeQueue)
+        {
+            auto iter = m_enemies.find(id);
+
+            if (iter == m_enemies.end())
+                continue;
+
+            if (iter->second)
+                removeEnemies.push_back(iter->second);
+
+            m_enemies.erase(iter);
+        }
+
+        m_removeQueue.clear();
+    }
+
+    // 4. Pool 반환은 lock 밖에서 수행
+    for (const auto& enemy : removeEnemies)
+    {
+        m_spawnManager.ReleaseEnemy(enemy);
+    }
 }
 
 int EnemyManager::GetAliveEnemyCount() const
 {
     std::lock_guard<std::mutex> lock(m_enemyMutex);
+
     if (m_enemies.size() < m_removeQueue.size())
         return 0;
-    return static_cast<int>(m_enemies.size() - m_removeQueue.size());
+
+    return static_cast<int>(
+        m_enemies.size() - m_removeQueue.size()
+        );
 }
 
-std::vector<std::shared_ptr<Enemy>> EnemyManager::FindEnemyInRange(
+std::vector<std::shared_ptr<Enemy>>
+EnemyManager::FindEnemyInRange(
     const Vector3& position,
     float range,
     int maxTargets
 ) const
 {
     const float rangeSquared = range * range;
-    std::vector<std::shared_ptr<Enemy>> enemies;
+
+    struct EnemyCandidate
+    {
+        std::shared_ptr<Enemy> enemy;
+        float distanceSquared;
+        uint32_t instanceId;
+    };
+
+    std::vector<EnemyCandidate> candidates;
+    std::vector<std::pair<uint32_t, std::shared_ptr<Enemy>>> enemiesSnapshot;
 
     {
         std::lock_guard<std::mutex> lock(m_enemyMutex);
 
         for (const auto& [id, enemy] : m_enemies)
         {
-            if (!enemy || !enemy->IsActive())
-                continue;
-
-            Vector3 enemyPos = enemy->GetPosition();
-            const float dx = enemyPos.x - position.x;
-            const float dy = enemyPos.y - position.y;
-            const float distanceSquared = (dx * dx) + (dy * dy);
-
-            if (distanceSquared <= rangeSquared)
-            {
-                enemies.push_back(enemy);
-            }
+            enemiesSnapshot.emplace_back(id, enemy);
         }
     }
 
-    std::sort(
-        enemies.begin(),
-        enemies.end(),
-        [&position](const std::shared_ptr<Enemy>& lhs, const std::shared_ptr<Enemy>& rhs)
+    candidates.reserve(enemiesSnapshot.size());
+
+    for (const auto& [id, enemy] : enemiesSnapshot)
+    {
+        if (!enemy || !enemy->IsActive())
+            continue;
+
+        const Vector3 enemyPos = enemy->GetPosition();
+
+        const float dx = enemyPos.x - position.x;
+        const float dy = enemyPos.y - position.y;
+
+        const float distanceSquared =
+            (dx * dx) + (dy * dy);
+
+        if (distanceSquared <= rangeSquared)
         {
-            const Vector3& lPos = lhs->GetPosition();
-            const Vector3& rPos = rhs->GetPosition();
+            candidates.push_back(
+                {
+                    enemy,
+                    distanceSquared,
+                    id
+                }
+            );
+        }
+    }
 
-            const float lDistSq =
-                (lPos.x - position.x) * (lPos.x - position.x) +
-                (lPos.y - position.y) * (lPos.y - position.y);
+    // Enemy의 Position을 다시 읽지 않고
+    // snapshot 당시 계산한 거리로 정렬
+    std::sort(
+        candidates.begin(),
+        candidates.end(),
+        [](const EnemyCandidate& lhs, const EnemyCandidate& rhs)
+        {
+            if (lhs.distanceSquared != rhs.distanceSquared)
+                return lhs.distanceSquared < rhs.distanceSquared;
 
-            const float rDistSq =
-                (rPos.x - position.x) * (rPos.x - position.x) +
-                (rPos.y - position.y) * (rPos.y - position.y);
-
-            // 거리가 다르면 가까운 적 우선
-            if (lDistSq != rDistSq)
-                return lDistSq < rDistSq;
-
-            // 거리가 같으면 instanceId가 작은 적 우선
-            return lhs->GetInstanceId() < rhs->GetInstanceId();
+            return lhs.instanceId < rhs.instanceId;
         }
     );
 
-    if (maxTargets > 0 && static_cast<int>(enemies.size()) > maxTargets)
+    if (maxTargets > 0 &&
+        static_cast<int>(candidates.size()) > maxTargets)
     {
-        enemies.resize(static_cast<size_t>(maxTargets));
+        candidates.resize(
+            static_cast<size_t>(maxTargets)
+        );
+    }
+
+    std::vector<std::shared_ptr<Enemy>> enemies;
+    enemies.reserve(candidates.size());
+
+    for (const auto& candidate : candidates)
+    {
+        enemies.push_back(candidate.enemy);
     }
 
     return enemies;
@@ -173,20 +235,29 @@ EnemyManager::GetActiveEnemiesSnapshot() const
 {
     std::vector<std::shared_ptr<Enemy>> enemies;
 
-    std::lock_guard<std::mutex> lock(m_enemyMutex);
-
-    enemies.reserve(m_enemies.size());
-
-    for (const auto& [id, enemy] : m_enemies)
     {
-        if (!enemy)
-            continue;
+        std::lock_guard<std::mutex> lock(m_enemyMutex);
 
-        if (!enemy->IsActive() || enemy->IsDead())
-            continue;
+        enemies.reserve(m_enemies.size());
 
-        enemies.push_back(enemy);
+        for (const auto& [id, enemy] : m_enemies)
+        {
+            if (enemy)
+                enemies.push_back(enemy);
+        }
     }
+
+    enemies.erase(
+        std::remove_if(
+            enemies.begin(),
+            enemies.end(),
+            [](const std::shared_ptr<Enemy>& enemy)
+            {
+                return !enemy->IsActive() || enemy->IsDead();
+            }
+        ),
+        enemies.end()
+    );
 
     return enemies;
 }

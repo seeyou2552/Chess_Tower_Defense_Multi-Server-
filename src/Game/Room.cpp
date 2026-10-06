@@ -62,6 +62,8 @@ Room::Room(
 
 void Room::Update(float deltaTime)
 {
+    std::lock_guard<std::mutex> updateLock(m_updateMutex);
+
     ProcessCommands();
 
     std::unique_lock<std::recursive_mutex> lock(m_roomMutex);

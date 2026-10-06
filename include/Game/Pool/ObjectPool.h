@@ -3,6 +3,9 @@
 #include <queue>
 #include <memory>
 #include <functional>
+#include <cstddef>
+#include <mutex>
+#include <utility>
 
 template<typename T>
 class ObjectPool
@@ -19,14 +22,34 @@ public:
 
     std::shared_ptr<T> Acquire()
     {
-        if (m_pool.empty())
+        std::shared_ptr<T> obj;
+        bool needsReset = false;
         {
-            return m_creator();
+            std::lock_guard<std::mutex> lock(m_mutex);
+
+            const std::size_t pendingCount = m_pending.size();
+            for (std::size_t i = 0; i < pendingCount; ++i)
+            {
+                auto pending = std::move(m_pending.front());
+                m_pending.pop();
+
+                if (!obj && pending.use_count() == 1)
+                {
+                    obj = std::move(pending);
+                    needsReset = true;
+                }
+                else
+                {
+                    m_pending.push(std::move(pending));
+                }
+            }
         }
 
-        auto obj = m_pool.front();
+        if (!obj)
+            return m_creator();
 
-        m_pool.pop();
+        if (needsReset)
+            obj->Reset();
 
         return obj;
     }
@@ -35,16 +58,20 @@ public:
         std::shared_ptr<T> obj
     )
     {
-        obj->Reset();
+        if (!obj)
+            return;
 
-        m_pool.push(obj);
+        std::lock_guard<std::mutex> lock(m_mutex);
+        m_pending.push(std::move(obj));
     }
 
 private:
 
+    std::mutex m_mutex;
+
     std::queue<
         std::shared_ptr<T>
-    > m_pool;
+    > m_pending;
 
     std::function<
         std::shared_ptr<T>()

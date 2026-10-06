@@ -2,6 +2,7 @@
 
 #include "Game/Minion/Minion.h"
 #include "Game/Enemy/Enemy.h"
+#include "Game/Math/Vector3.h"
 #include "Game/Room.h"
 
 #include "Core/Logger.h"
@@ -57,7 +58,7 @@ void AOEOnHitEvent::OnHit(
 
     auto& enemyManager = room->GetEnemyManager();
 
-    auto& enemyPos = enemy->GetPosition();
+    const Vector3 enemyPos = enemy->GetPosition();
     auto range = data.value * 2.0f;
 
     auto targets = enemyManager.FindEnemyInRange(
@@ -91,4 +92,3 @@ void ExcutionOnHitEvent::OnHit(
         enemy->TakeDamage(maxHp);
     }
 }
-

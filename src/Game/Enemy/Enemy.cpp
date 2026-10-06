@@ -20,6 +20,8 @@ void Enemy::Init(
     int y
 )
 {
+    std::lock_guard<std::recursive_mutex> lock(m_mutex);
+
     m_instanceId = instanceId;
     m_dataId = data.id;
 
@@ -38,6 +40,8 @@ void Enemy::Init(
 
 void Enemy::Reset()
 {
+    std::lock_guard<std::recursive_mutex> lock(m_mutex);
+
     m_instanceId = 0;
 
     m_dataId = 0;
@@ -56,22 +60,43 @@ void Enemy::Reset()
     m_lifeTime = 0.0f;
     m_slowDebuffs.clear();
     m_damageOverTimeDebuffs.clear();
+    m_waypoints.clear();
+    m_pathIndex = 0;
+    m_currentWaypointIndex = 0;
+    m_onArrival = nullptr;
+    m_onDead = nullptr;
 }
 
 void Enemy::Update(
     float deltaTime
 )
 {
-    if (m_isDead)
-        return;
+    DeadCallback deadCallback;
+    ArrivalCallback arrivalCallback;
+    std::shared_ptr<Enemy> selfEnemy;
 
-    m_lifeTime += deltaTime;
-    UpdateDebuffs(deltaTime);
-
-    if (!m_isStunned)
     {
-        UpdateMovement(deltaTime);
+        std::unique_lock<std::recursive_mutex> lock(m_mutex);
+
+        if (m_isDead)
+            return;
+
+        m_lifeTime += deltaTime;
+        UpdateDebuffs(deltaTime, deadCallback, selfEnemy);
+
+        lock.unlock();
+        if (deadCallback)
+            deadCallback(selfEnemy);
+        lock.lock();
+
+        if (!m_isStunned)
+        {
+            UpdateMovementLocked(deltaTime, arrivalCallback, selfEnemy);
+        }
     }
+
+    if (arrivalCallback)
+        arrivalCallback(selfEnemy);
 }
 
 void Enemy::SetPath(
@@ -79,6 +104,8 @@ void Enemy::SetPath(
     const std::vector<Vector3>& waypoints
 )
 {
+    std::lock_guard<std::recursive_mutex> lock(m_mutex);
+
     m_pathIndex = pathIndex;
     m_currentWaypointIndex = 1;
     m_waypoints = waypoints;
@@ -86,13 +113,32 @@ void Enemy::SetPath(
 
 void Enemy::UpdateMovement(float deltaTime)
 {
+    ArrivalCallback arrivalCallback;
+    std::shared_ptr<Enemy> selfEnemy;
+
+    {
+        std::lock_guard<std::recursive_mutex> lock(m_mutex);
+        UpdateMovementLocked(deltaTime, arrivalCallback, selfEnemy);
+    }
+
+    if (arrivalCallback)
+        arrivalCallback(selfEnemy);
+}
+
+void Enemy::UpdateMovementLocked(
+    float deltaTime,
+    ArrivalCallback& arrivalCallback,
+    std::shared_ptr<Enemy>& selfEnemy
+)
+{
     if (m_isStunned)
         return;
 
-    // 더 이상 진행 할 수 없을 시 목적지 도달 로직 실행
     if (m_waypoints.empty() || m_currentWaypointIndex >= m_waypoints.size())
     {
-        OnReachEnd();
+        arrivalCallback = m_onArrival;
+        if (arrivalCallback)
+            selfEnemy = std::static_pointer_cast<Enemy>(shared_from_this());
         return;
     }
 
@@ -138,6 +184,8 @@ void Enemy::UpdateMovement(float deltaTime)
 
 void Enemy::ApplySlow(float percent, float duration)
 {
+    std::lock_guard<std::recursive_mutex> lock(m_mutex);
+
     if (percent <= 0.0f || duration <= 0.0f)
         return;
 
@@ -147,6 +195,8 @@ void Enemy::ApplySlow(float percent, float duration)
 
 void Enemy::ApplyStun(float duration)
 {
+    std::lock_guard<std::recursive_mutex> lock(m_mutex);
+
     if (duration <= 0.0f)
         return;
 
@@ -156,13 +206,19 @@ void Enemy::ApplyStun(float duration)
 
 void Enemy::ApplyDamageOverTime(float damage, float duration)
 {
+    std::lock_guard<std::recursive_mutex> lock(m_mutex);
+
     if (damage <= 0.0f || duration <= 0.0f)
         return;
 
     m_damageOverTimeDebuffs.push_back({ damage, duration, 1.0f, 0.0f });
 }
 
-void Enemy::UpdateDebuffs(float deltaTime)
+void Enemy::UpdateDebuffs(
+    float deltaTime,
+    DeadCallback& deadCallback,
+    std::shared_ptr<Enemy>& selfEnemy
+)
 {
     // Slow
     for (auto it = m_slowDebuffs.begin(); it != m_slowDebuffs.end();)
@@ -197,7 +253,11 @@ void Enemy::UpdateDebuffs(float deltaTime)
         while (it->elapsedTime >= it->tickInterval && !m_isDead)
         {
             Logger::GetInstance().Info("Damage Debuff~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-            TakeDamage(static_cast<int>(it->damagePerTick));
+            TakeDamageLocked(
+                static_cast<int>(it->damagePerTick),
+                deadCallback,
+                selfEnemy
+            );
             it->elapsedTime -= it->tickInterval;
         }
 
@@ -223,20 +283,49 @@ void Enemy::RecalculateSlowPercent()
 
 void Enemy::OnReachEnd()
 {
-    if (m_onArrival)
+    ArrivalCallback arrivalCallback;
+    std::shared_ptr<Enemy> selfEnemy;
+
     {
-        auto selfEnemy = std::static_pointer_cast<Enemy>(shared_from_this());
-        m_onArrival(selfEnemy);
+        std::lock_guard<std::recursive_mutex> lock(m_mutex);
+        arrivalCallback = m_onArrival;
+        if (arrivalCallback)
+            selfEnemy = std::static_pointer_cast<Enemy>(shared_from_this());
     }
+
+    if (arrivalCallback)
+        arrivalCallback(selfEnemy);
 }
 
 void Enemy::TakeDamage(int damage)
 {
+    DeadCallback deadCallback;
+    std::shared_ptr<Enemy> selfEnemy;
+
+    {
+        std::lock_guard<std::recursive_mutex> lock(m_mutex);
+        TakeDamageLocked(damage, deadCallback, selfEnemy);
+    }
+
+    if (deadCallback)
+        deadCallback(selfEnemy);
+}
+
+void Enemy::TakeDamageLocked(
+    int damage,
+    DeadCallback& deadCallback,
+    std::shared_ptr<Enemy>& selfEnemy
+)
+{
+    if (m_isDead)
+        return;
+
     m_hp -= damage;
     if (m_hp <= 0)
     {
-        auto selfEnemy = std::static_pointer_cast<Enemy>(shared_from_this());
-        m_onDead(selfEnemy);
         m_isDead = true;
+        deadCallback = m_onDead;
+        if (deadCallback)
+            selfEnemy = std::static_pointer_cast<Enemy>(shared_from_this());
     }
 }
