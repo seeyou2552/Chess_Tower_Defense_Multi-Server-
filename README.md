@@ -44,6 +44,34 @@ Unity 클라이언트에서 동작하던 Chess Tower Defense를 네트워크 환
 
 특히 클라이언트와 서버가 각각 전투 결과를 계산하면서 발생했던 Enemy HP 및 사망 상태 불일치 문제를 해결하기 위해 **서버를 게임 상태의 기준으로 사용하는 Server Authoritative 구조**를 적용했습니다.
 
+### 📱 Download & Installation
+
+| 항목 | 내용 |
+|---|---|
+| Platform | Android |
+| Build | APK |
+| Installation | APK 직접 설치 |
+| Download | [최신 Release](https://github.com/seeyou2552/Chess_Tower_Defense_Multi-Server-/releases/latest) |
+
+1. [**최신 Release 페이지**](https://github.com/seeyou2552/Chess_Tower_Defense_Multi-Server-/releases/latest)에 접속합니다.
+2. `ctd_multi.apk`를 다운로드합니다.
+3. Android 기기에서 APK 파일을 실행합니다.
+4. 설치 권한을 허용한 후 앱을 설치합니다.
+5. 설치 완료 후 게임을 실행합니다.
+
+### 🎮 기본 조작법
+* **로그인 및 등록**: Id와 Password를 입력한 후 Login 또는 Register 버튼을 누릅니다. Login은 중복 로그인이 허용되어 있습니다.
+  
+**Test Id**
+* Id : test
+* Pwd : 1234
+   
+  ![Login](READMEImg/Login.png)
+  
+* **스테이지 시작**: 오른쪽 Play 버튼을 누르면 왼쪽 체스판에 Stage를 선택할 수 있는 UI가 생성됩니다. Level아래에 있는 Play 버튼을 누르면 매칭을 시작합니다. 다른 플레이어와 매칭 되면 해당 스테이지가 시작됩니다.
+![StageSelect](READMEImg/StageSelect.png)
+
+
 </details>
 
 <details>
