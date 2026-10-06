@@ -62,7 +62,7 @@ Unity 클라이언트에서 동작하던 Chess Tower Defense를 네트워크 환
 ### 🎮 기본 조작법
 * **로그인 및 등록**: Id와 Password를 입력한 후 Login 또는 Register 버튼을 누릅니다. Login은 중복 로그인이 허용되어 있습니다.
   
-Test Id
+**Test Id**
 * Id : test
 * Pwd : 1234
    
