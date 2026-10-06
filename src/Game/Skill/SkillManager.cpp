@@ -1,5 +1,5 @@
 #include "Game/Skill/SkillManager.h"
-#include "Game/Skill/BuffSKill.h"
+#include "Game/Skill/BuffSkill.h"
 
 SkillManager& SkillManager::GetInstance()
 {

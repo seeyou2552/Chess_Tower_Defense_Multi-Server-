@@ -1,6 +1,8 @@
 #pragma once
 
 #include <memory>
+#include <functional>
+#include <mutex>
 #include <string>
 
 #include <mysqlx/xdevapi.h>
@@ -43,5 +45,12 @@ public:
     );
 
 private:
+    bool ConnectSession();
+    bool RunWithReconnect(
+        const std::function<void(mysqlx::Session&)>& operation
+    );
+
+    DBConfig m_config;
     std::unique_ptr<mysqlx::Session> m_session;
+    std::mutex m_mutex;
 };

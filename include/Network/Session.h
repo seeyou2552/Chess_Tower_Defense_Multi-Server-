@@ -1,6 +1,7 @@
 #pragma once
 
 #include <asio.hpp>
+#include <atomic>
 #include <memory>
 #include <array>
 #include <deque>
@@ -77,4 +78,5 @@ private:
     std::mutex m_sendMutex;
 
     bool m_sending = false;
+    std::atomic_bool m_disconnected = false;
 };

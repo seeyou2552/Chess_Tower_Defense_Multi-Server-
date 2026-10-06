@@ -11,19 +11,26 @@ Database::~Database() = default;
 
 bool Database::Connect(const DBConfig& config)
 {
+    std::lock_guard<std::mutex> lock(m_mutex);
+    m_config = config;
+    return ConnectSession();
+}
+
+bool Database::ConnectSession()
+{
+    m_session.reset();
+
     try
     {
-        // 구조체에서 값을 받아와서 세션 생성
         m_session = std::make_unique<mysqlx::Session>(
-            mysqlx::SessionOption::HOST, config.host,
-            mysqlx::SessionOption::PORT, config.port,
-            mysqlx::SessionOption::USER, config.user,
-            mysqlx::SessionOption::PWD, config.password
+            mysqlx::SessionOption::HOST, m_config.host,
+            mysqlx::SessionOption::PORT, m_config.port,
+            mysqlx::SessionOption::USER, m_config.user,
+            mysqlx::SessionOption::PWD, m_config.password
         );
 
-        // 데이터베이스 선택
         m_session->sql(
-            "USE " + config.database
+            "USE " + m_config.database
         ).execute();
 
         return true;
@@ -34,21 +41,60 @@ bool Database::Connect(const DBConfig& config)
             e.what()
         );
 
+        m_session.reset();
         return false;
     }
+}
+
+bool Database::RunWithReconnect(
+    const std::function<void(mysqlx::Session&)>& operation
+)
+{
+    for (int attempt = 0; attempt < 2; ++attempt)
+    {
+        if (!m_session && !ConnectSession())
+        {
+            if (attempt == 1)
+            {
+                return false;
+            }
+
+            continue;
+        }
+
+        try
+        {
+            operation(*m_session);
+            return true;
+        }
+        catch (const mysqlx::Error& e)
+        {
+            Logger::GetInstance().Warning(
+                std::string("MySQL operation failed; reconnecting: ") + e.what()
+            );
+            m_session.reset();
+
+            if (attempt == 1 || !ConnectSession())
+            {
+                return false;
+            }
+        }
+    }
+
+    return false;
 }
 
 bool Database::ExistsAccount(
     const std::string& loginId
 )
 {
-    if (!m_session)
-    {
-        Logger::GetInstance().Error("Database session is not connected!");
-        return false;
-    }
-
-    return true;
+    std::lock_guard<std::mutex> lock(m_mutex);
+    return RunWithReconnect(
+        [](mysqlx::Session& session)
+        {
+            session.sql("SELECT 1").execute();
+        }
+    );
 }
 
 std::shared_ptr<Account> Database::LoadAccount(
@@ -57,54 +103,50 @@ std::shared_ptr<Account> Database::LoadAccount(
     ErrorCode& error
 )
 {
-    auto result =
-        m_session
-        ->sql(
-            "SELECT BIN_TO_UUID(UUID), Loginid, PasswordHash, Salt "
-            "FROM Users "
-            "WHERE LoginId=?"
-        )
-        .bind(loginId)
-        .execute();
+    std::lock_guard<std::mutex> lock(m_mutex);
+    std::shared_ptr<Account> account;
+    const bool succeeded = RunWithReconnect(
+        [&](mysqlx::Session& session)
+        {
+            auto result =
+                session
+                .sql(
+                    "SELECT BIN_TO_UUID(UUID), Loginid, PasswordHash, Salt "
+                    "FROM Users "
+                    "WHERE LoginId=?"
+                )
+                .bind(loginId)
+                .execute();
 
-    auto row =
-        result.fetchOne();
+            auto row = result.fetchOne();
+            if (row.isNull())
+            {
+                error = ErrorCode::InvalidId;
+                return;
+            }
 
-    if (row.isNull())
+            std::string storedHash = row[2].get<std::string>();
+            std::string salt = row[3].get<std::string>();
+            if (storedHash != SHA256::Hash(password + salt))
+            {
+                error = ErrorCode::InvalidPassword;
+                return;
+            }
+
+            account = std::make_shared<Account>();
+            account->uuid = row[0].get<std::string>();
+            account->loginId = row[1].get<std::string>();
+            account->password = storedHash;
+            account->salt = salt;
+            error = ErrorCode::None;
+        }
+    );
+
+    if (!succeeded)
     {
-        error = ErrorCode::InvalidId;
+        error = ErrorCode::InternalServerError;
         return nullptr;
     }
-
-    // password SHA256 비교
-    std::string storedHash =
-        row[2].get<std::string>();
-
-    std::string salt =
-        row[3].get<std::string>();
-
-    std::string inputHash =
-        SHA256::Hash(password + salt);
-
-    if (storedHash != inputHash)
-    {
-        error = ErrorCode::InvalidPassword;
-        return nullptr;
-    }
-
-    auto account =
-        std::make_shared<Account>();
-
-    account->uuid =
-        row[0].get<std::string>();
-
-    account->loginId =
-        row[1].get<std::string>();
-
-    account->password =
-        row[2].get<std::string>();
-
-    error = ErrorCode::None;
     return account;
 }
 
@@ -115,72 +157,57 @@ bool Database::InsertAccount(
     ErrorCode& error
 )
 {
-    try
-    {
-        // Check
-        auto check =
-            m_session
-            ->sql(
-                "SELECT COUNT(*) "
-                "FROM Users "
-                "WHERE LoginId=?"
-            )
-            .bind(loginId)
-            .execute();
-        Logger::GetInstance().Info(loginId);
-
-        auto row =
-            check.fetchOne();
-
-
-        if (!row.isNull() &&
-            row[0].get<int>() > 0)
+    std::lock_guard<std::mutex> lock(m_mutex);
+    bool alreadyExists = false;
+    if (!RunWithReconnect(
+        [&](mysqlx::Session& session)
         {
-            Logger::GetInstance()
-                .Warning(
-                    "Already Exists LoginId"
-                );
-            error = ErrorCode::DuplicateId;
+            auto check =
+                session
+                .sql(
+                    "SELECT COUNT(*) "
+                    "FROM Users "
+                    "WHERE LoginId=?"
+                )
+                .bind(loginId)
+                .execute();
 
-            return false;
+            auto row = check.fetchOne();
+            alreadyExists = !row.isNull() && row[0].get<int>() > 0;
         }
-
-        m_session
-            ->sql(
-                "INSERT INTO Users "
-                "(LoginId, PasswordHash, Salt, UUID) "
-                "VALUES (?, ?, ?, UUID_TO_BIN(UUID()))"
-            )
-            .bind(
-                loginId,
-                password,
-                salt
-            )
-            .execute();
-
-        error = ErrorCode::None;
-    }
-    catch (const mysqlx::Error& e)
+    ))
     {
-        Logger::GetInstance().Error(
-            e.what()
-        );
-
+        error = ErrorCode::InternalServerError;
         return false;
     }
 
-    auto result =
-        m_session
-        ->sql(
-            "SELECT BIN_TO_UUID(UUID) "
-            "FROM Users "
-            "WHERE LoginId=?"
-        )
-        .bind(loginId)
-        .execute();
+    if (alreadyExists)
+    {
+        Logger::GetInstance().Warning("Already Exists LoginId");
+        error = ErrorCode::DuplicateId;
+        return false;
+    }
 
-    auto row =
-        result.fetchOne();
+    const bool inserted = RunWithReconnect(
+        [&](mysqlx::Session& session)
+        {
+            session
+                .sql(
+                    "INSERT INTO Users "
+                    "(LoginId, PasswordHash, Salt, UUID) "
+                    "VALUES (?, ?, ?, UUID_TO_BIN(UUID()))"
+                )
+                .bind(loginId, password, salt)
+                .execute();
+        }
+    );
 
+    if (!inserted)
+    {
+        error = ErrorCode::InternalServerError;
+        return false;
+    }
+
+    error = ErrorCode::None;
     return true;
 }

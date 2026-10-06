@@ -49,19 +49,7 @@ void Session::Read()
                 Logger::GetInstance().Info(
                     "Client Disconnected"
                 );
-
-                auto player =
-                    GetPlayer();
-
-                if(player)
-                {
-                    m_server
-                        .GetPlayerManager()
-                        .RemovePlayer(
-                            player->GetId()
-                        );
-                }
-
+                Disconnect();
                 return;
             }
 
@@ -209,7 +197,7 @@ void Session::DoSend()
                     .Error(
                         "Send Failed"
                     );
-
+                Disconnect();
                 return;
             }
 
@@ -223,6 +211,11 @@ void Session::DoSend()
 
 void Session::Disconnect()
 {
+    if (m_disconnected.exchange(true))
+    {
+        return;
+    }
+
     auto player = m_player;
 
     if(player)
@@ -243,5 +236,6 @@ void Session::Disconnect()
     }
 
 
-    m_socket.close();
+    std::error_code ec;
+    m_socket.close(ec);
 }

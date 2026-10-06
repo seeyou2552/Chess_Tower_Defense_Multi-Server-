@@ -52,33 +52,18 @@ void JoinRoomHandler::Handle(
                 );
 
 
-        if(room)
+        if (!room || !room->Enter(player))
         {
-            room->Enter(player);
+            room = server.GetRoomManager().CreateRoom(request.stageId);
 
-			response.errCode = ErrorCode::None;
-
-            Logger::GetInstance().Info(
-                "Join Room : " +
-                std::to_string(room->GetId())
-            );
+            if (!room->Enter(player))
+            {
+                Logger::GetInstance().Error("Failed to enter newly created room");
+                return;
+            }
         }
-        else
-        {
-			room = server.GetRoomManager()
-				.CreateRoom(request.stageId);
 
-            Logger::GetInstance().Info("Create");
-
-            room->Enter(player);
-
-            response.errCode = ErrorCode::None;
-
-            Logger::GetInstance().Info(
-                "Join Room : " +
-                std::to_string(room->GetId())
-            );
-        }
+        response.errCode = ErrorCode::None;
     }
 
 

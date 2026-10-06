@@ -57,7 +57,7 @@ Room::Room(
     )
 {
     m_hp = 100;
-    m_gameState = GameState::Intermission;
+    m_gameState = GameState::WaitingForPlayers;
 }
 
 void Room::Update(float deltaTime)
@@ -159,14 +159,19 @@ void Room::ProcessCommands()
     }
 }
 
-void Room::Enter( std::shared_ptr<Player> player )
+bool Room::Enter( std::shared_ptr<Player> player )
 {
     std::unique_lock<std::recursive_mutex> lock(m_roomMutex);
 
     if (!player)
     {
         Logger::GetInstance().Info("Error: Player is nullptr");
-        return;
+        return false;
+    }
+
+    if (m_gameState != GameState::WaitingForPlayers || m_players.size() >= 2)
+    {
+        return false;
     }
 
     auto playerId = player->GetId();
@@ -206,6 +211,7 @@ void Room::Enter( std::shared_ptr<Player> player )
 
     if (shouldStartStage)
     {
+        m_gameState = GameState::Intermission;
         Logger::GetInstance().Info(
             "Start?"
         );
@@ -219,19 +225,29 @@ void Room::Enter( std::shared_ptr<Player> player )
         lock.unlock();
         StageStart();
     }
+
+    return true;
 }
 
 void Room::Leave( std::shared_ptr<Player> player )
 {
+    if (!player)
+    {
+        return;
+    }
+
     std::lock_guard<std::recursive_mutex> lock(m_roomMutex);
 
-    m_players.erase(
-        player->GetId()
-    );
+    const auto playerId = player->GetId();
+    if (m_players.erase(playerId) == 0)
+    {
+        return;
+    }
 
     player->SetRoom(
         nullptr
     );
+    m_playerReady.erase(playerId);
 
     Logger::GetInstance().Info(
         "Room Player Count : " +
@@ -239,6 +255,17 @@ void Room::Leave( std::shared_ptr<Player> player )
             m_players.size()
         )
     );
+
+    if (m_players.empty())
+    {
+        ResetStageState();
+        m_playerReady.clear();
+        if (m_game)
+        {
+            m_game->Stop();
+            m_game.reset();
+        }
+    }
 }
 
 void Room::Broadcast( const std::vector<char>& packet )
@@ -1115,7 +1142,7 @@ void Room::ResetStageState()
     }
 
     m_hp = 100;
-    m_gameState = GameState::Intermission;
+    m_gameState = GameState::WaitingForPlayers;
     m_syncTimer = 0.0f;
     m_goldChange = false;
 

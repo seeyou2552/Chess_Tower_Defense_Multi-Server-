@@ -1,5 +1,6 @@
 #pragma once
 
+#include <fstream>
 #include <mutex>
 #include <string>
 
@@ -15,6 +16,7 @@ class Logger
 public:
     static Logger& GetInstance();
 
+    bool SetFilePath(const std::string& filePath);
     void Info(const std::string& message);
     void Warning(const std::string& message);
     void Error(const std::string& message);
@@ -24,6 +26,6 @@ private:
 
     void Write(LogLevel level, const std::string& message);
 
-private:
     std::mutex m_mutex;
+    std::ofstream m_file;
 };

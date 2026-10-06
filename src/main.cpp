@@ -1,29 +1,64 @@
 #include "Game/GameServer.h"
 #include "Core/Logger.h"
 
-#include <iostream>
+#include <fstream>
+#include <nlohmann/json.hpp>
 
 using json = nlohmann::json;
 
 int main()
 {
-    std::cout << "[MAIN] Server starting..." << std::endl;
-
-    GameServer server;
-
-    std::cout << "[MAIN] GameServer created" << std::endl;
-
-    if (!server.Start())
+    std::ifstream configFile("config.json");
+    if (!configFile.is_open())
     {
-        std::cout << "[MAIN] Server Start() FAILED" << std::endl;
+        Logger::GetInstance().Error("Failed to open config.json");
         return -1;
     }
 
-    std::cout << "[MAIN] Server Start() SUCCESS" << std::endl;
+    std::string logFilePath;
+    try
+    {
+        json config;
+        configFile >> config;
+        logFilePath = config.at("logger").at("file_path").get<std::string>();
+    }
+    catch (const std::exception&)
+    {
+        Logger::GetInstance().Error("Missing or invalid logger.file_path in config.json");
+        return -1;
+    }
+
+    try
+    {
+        if (!Logger::GetInstance().SetFilePath(logFilePath))
+        {
+            Logger::GetInstance().Error("Failed to open log file: " + logFilePath);
+            return -1;
+        }
+    }
+    catch (const std::exception&)
+    {
+        Logger::GetInstance().Error("Failed to create log file path: " + logFilePath);
+        return -1;
+    }
+
+    Logger::GetInstance().Info("Server starting...");
+
+    GameServer server;
+
+    Logger::GetInstance().Info("GameServer created");
+
+    if (!server.Start())
+    {
+        Logger::GetInstance().Error("Server Start() FAILED");
+        return -1;
+    }
+
+    Logger::GetInstance().Info("Server Start() SUCCESS");
 
     server.Run();
 
-    std::cout << "[MAIN] Server Run() returned" << std::endl;
+    Logger::GetInstance().Info("Server Run() returned");
 
     return 0;
 }

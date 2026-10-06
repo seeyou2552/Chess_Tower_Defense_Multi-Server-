@@ -70,7 +70,7 @@ RoomManager::CreateRoom(int stageId)
         m_rooms.emplace(roomId, room);
     }
 
-    Logger::GetInstance().Info(std::to_string(roomId));
+    Logger::GetInstance().Info("Create Room : " + std::to_string(roomId));
 
     return room;
 }
@@ -96,17 +96,12 @@ RoomManager::GetRoom(
 
     for (const auto& room : rooms)
     {
-        if (room->GetStageId() == stageId)
+        if (room->GetStageId() == stageId && room->CanEnter())
         {
-            if (!room->IsFull())
-            {
-                return room;
-            }
-
-            Logger::GetInstance().Info("IsFull");
+            return room;
         }
     }
-    Logger::GetInstance().Info("Room not found");
+
     return nullptr;
 }
 

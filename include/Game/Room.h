@@ -62,7 +62,13 @@ public:
 
     uint64_t GetTimestamp();
 
-    void Enter(
+    bool CanEnter() const
+    {
+        std::lock_guard<std::recursive_mutex> lock(m_roomMutex);
+        return m_gameState == GameState::WaitingForPlayers && m_players.size() < 2;
+    }
+
+    bool Enter(
         std::shared_ptr<Player> player
     );
 
