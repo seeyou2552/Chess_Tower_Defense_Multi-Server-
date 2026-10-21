@@ -7,12 +7,14 @@
 Session::Session(
     asio::ip::tcp::socket socket,
     GameServer& server,
-    PacketDispatcher& dispatcher
+    PacketDispatcher& dispatcher,
+    const ServerConfig& config
 )
     :
     m_socket(std::move(socket)),
     m_server(server),
-    m_dispatcher(dispatcher)
+    m_dispatcher(dispatcher),
+    m_config(config)
 {
 }
 
@@ -71,6 +73,11 @@ void Session::Read()
 
             ProcessPackets();
 
+            if (m_disconnected)
+            {
+                return;
+            }
+
             Read();
         }
     );
@@ -87,16 +94,65 @@ void Session::ProcessPackets()
             reinterpret_cast<const PacketHeader*>(
                 m_receiveBuffer.Data());
 
+        if (header->size < sizeof(PacketHeader))
+        {
+            Logger::GetInstance().Warning("Invalid packet size");
+            Disconnect();
+            return;
+        }
+
         if (m_receiveBuffer.Size() < header->size)
             return;
+
+        const auto packetType = header->type;
+        const auto packetSize = static_cast<uint16_t>(
+            header->size - sizeof(PacketHeader));
+        const auto* packet = m_receiveBuffer.Data() + sizeof(PacketHeader);
+
+        if (!m_dispatcher.HasHandler(packetType))
+        {
+            m_dispatcher.Dispatch(
+                packetType,
+                shared_from_this(),
+                packet,
+                packetSize
+            );
+            Disconnect();
+            return;
+        }
+
+        const auto now = std::chrono::steady_clock::now();
+        if (now < m_blockedUntil)
+        {
+            m_receiveBuffer.Remove(header->size);
+            continue;
+        }
+
+        while (!m_packetTimestamps.empty() &&
+            now - m_packetTimestamps.front() >= std::chrono::seconds(1))
+        {
+            m_packetTimestamps.pop_front();
+        }
+
+        m_packetTimestamps.push_back(now);
+        if (m_packetTimestamps.size() >= m_config.maxPacketsPerSecond)
+        {
+            m_blockedUntil = now + std::chrono::seconds(
+                m_config.packetBlockDurationSeconds);
+            m_packetTimestamps.clear();
+            Logger::GetInstance().Warning(
+                "Client packet rate exceeded; temporarily blocking session");
+            m_receiveBuffer.Remove(header->size);
+            continue;
+        }
 
         try
         {
             m_dispatcher.Dispatch(
-                header->type,
+                packetType,
                 shared_from_this(),
-                m_receiveBuffer.Data() + sizeof(PacketHeader),
-                header->size - sizeof(PacketHeader)
+                packet,
+                packetSize
             );
         }
         

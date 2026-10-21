@@ -30,7 +30,9 @@ public:
     );
 
 
-    void Dispatch(
+    bool HasHandler(PacketType type) const;
+
+    bool Dispatch(
         PacketType type,
         std::shared_ptr<Session> session,
         const char* packet,

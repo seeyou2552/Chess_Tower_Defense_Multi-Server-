@@ -4,9 +4,11 @@
 #include <atomic>
 #include <memory>
 #include <array>
+#include <chrono>
 #include <deque>
 #include <mutex>
 
+#include "Config/ServerConfig.h"
 #include "Network/Packet/PacketHeader.h"
 #include "Network/Packet/ReceiveBuffer.h"
 
@@ -22,7 +24,8 @@ public:
     Session(
         asio::ip::tcp::socket socket,
         GameServer& server,
-        PacketDispatcher& dispatcher
+        PacketDispatcher& dispatcher,
+        const ServerConfig& config
     );
 
     void Start();
@@ -68,6 +71,8 @@ private:
 
     PacketDispatcher& m_dispatcher;
 
+    const ServerConfig& m_config;
+
     std::shared_ptr<Player> m_player;
 
     ReceiveBuffer m_receiveBuffer;
@@ -79,4 +84,7 @@ private:
 
     bool m_sending = false;
     std::atomic_bool m_disconnected = false;
+
+    std::deque<std::chrono::steady_clock::time_point> m_packetTimestamps;
+    std::chrono::steady_clock::time_point m_blockedUntil{};
 };

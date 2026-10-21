@@ -23,7 +23,8 @@ TcpServer::TcpServer(
         )
     ),
     m_server(server),
-    m_dispatcher(dispatcher)
+    m_dispatcher(dispatcher),
+    m_config(config)
 {
 }
 
@@ -71,7 +72,8 @@ void TcpServer::StartAccept()
                 std::make_shared<Session>(
                     std::move(*socket),
                     m_server,
-                    m_dispatcher
+                    m_dispatcher,
+                    m_config
                 );
 
             session->Start();

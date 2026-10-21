@@ -28,4 +28,5 @@ private:
     asio::ip::tcp::acceptor m_acceptor;
     GameServer& m_server;
     PacketDispatcher& m_dispatcher;
+    const ServerConfig& m_config;
 };

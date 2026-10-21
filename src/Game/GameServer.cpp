@@ -298,6 +298,25 @@ bool GameServer::Start()
         dbConfig.password = j["database"]["password"];
         dbConfig.database = j["database"]["dbname"];
 
+        if (j.contains("packet_rate_limit"))
+        {
+            const auto& packetRateConfig = j["packet_rate_limit"];
+            m_config.maxPacketsPerSecond = packetRateConfig.value(
+                "max_packets_per_second",
+                m_config.maxPacketsPerSecond);
+            m_config.packetBlockDurationSeconds = packetRateConfig.value(
+                "block_duration_seconds",
+                m_config.packetBlockDurationSeconds);
+        }
+
+        if (m_config.maxPacketsPerSecond == 0 ||
+            m_config.packetBlockDurationSeconds == 0)
+        {
+            Logger::GetInstance().Error(
+                "packet_rate_limit values must be greater than zero");
+            return false;
+        }
+
         if (j.contains("redis"))
         {
             const auto& redisJson = j["redis"];
@@ -312,9 +331,10 @@ bool GameServer::Start()
 
     }
     catch (const std::exception& e) {
-        Logger::GetInstance().Info("Error parsing config.json");
+        Logger::GetInstance().Error(
+            "Error parsing config.json: " + std::string(e.what()));
 
-        return -1;
+        return false;
     }
 
     // Database 객체 생성 및 연결 시도

@@ -16,7 +16,12 @@ void PacketDispatcher::Register(
 
 
 
-void PacketDispatcher::Dispatch(
+bool PacketDispatcher::HasHandler(PacketType type) const
+{
+    return m_handlers.find(type) != m_handlers.end();
+}
+
+bool PacketDispatcher::Dispatch(
     PacketType type,
     std::shared_ptr<Session> session,
     const char* packet,
@@ -31,7 +36,7 @@ void PacketDispatcher::Dispatch(
         Logger::GetInstance()
             .Warning("Unknown Packet");
 
-        return;
+        return false;
     }
 
     iter->second(
@@ -39,4 +44,6 @@ void PacketDispatcher::Dispatch(
         packet,
         size
     );
+
+    return true;
 }
